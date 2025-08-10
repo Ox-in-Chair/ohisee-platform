@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from '@/components/providers'
 import { Toaster } from 'react-hot-toast'
+import { FloatingThemeToggle } from '@/components/ui/theme'
 
 export const metadata: Metadata = {
   title: 'OhiSee! - Operations Intelligence Centre',
@@ -20,9 +21,10 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-screen bg-white font-sans antialiased" style={{fontFamily: 'Poppins, sans-serif'}}>
+      <body className="min-h-screen bg-white font-sans antialiased theme-transition" style={{fontFamily: 'Poppins, sans-serif'}}>
         <Providers>
           {children}
+          <FloatingThemeToggle />
           <Toaster
             position="top-right"
             toastOptions={{
