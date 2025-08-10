@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { 
   Shield, FileText, Users, Bell, CheckCircle, 
-  HandshakeIcon, FolderOpen, GraduationCap, Search,
+  FolderOpen, GraduationCap, Search,
   Home, AlertTriangle, TrendingUp
 } from 'lucide-react'
 
