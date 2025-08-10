@@ -156,17 +156,17 @@ export default function DashboardPage() {
             {/* Quick Actions */}
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
               <h3 className="text-xl font-semibold text-primary mb-4">Quick Actions</h3>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/non-conforming" className="btn-primary">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Link href="/non-conforming" className="btn-primary text-center">
                   Report Non-Conformance
                 </Link>
-                <Link href="/maintenance" className="btn-primary">
+                <Link href="/maintenance" className="btn-primary text-center">
                   Submit Maintenance Request
                 </Link>
-                <Link href="/complaints" className="btn-secondary">
+                <Link href="/complaints" className="btn-secondary text-center">
                   Handle Customer Complaint
                 </Link>
-                <Link href="/report/new" className="btn-secondary">
+                <Link href="/report/new" className="btn-secondary text-center">
                   Submit Confidential Report
                 </Link>
               </div>

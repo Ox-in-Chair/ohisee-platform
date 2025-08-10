@@ -55,25 +55,25 @@ export default function HomePage() {
             icon={<Shield className="w-6 h-6" />}
             title="Product Safety"
             description="Report food safety and quality concerns"
-            color="bg-blue-500"
+            color="bg-primary"
           />
           <CategoryCard
             icon={<Users className="w-6 h-6" />}
             title="Misconduct"
             description="Report ethical violations or misconduct"
-            color="bg-purple-500"
+            color="bg-blue-500"
           />
           <CategoryCard
             icon={<Bell className="w-6 h-6" />}
             title="Health & Safety"
             description="Report workplace safety issues"
-            color="bg-green-500"
+            color="bg-primary"
           />
           <CategoryCard
             icon={<Users className="w-6 h-6" />}
             title="Harassment"
             description="Report discrimination or harassment"
-            color="bg-red-500"
+            color="bg-blue-500"
           />
         </div>
 
