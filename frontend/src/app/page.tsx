@@ -103,7 +103,6 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex items-center gap-4 animate-slide-in-right">
-              <span className="text-sm hidden md:inline">Multi-Tenant Platform</span>
               <Link href="/admin" className="btn-ghost text-sm hover:scale-105 transition-all duration-200">
                 Admin Center
               </Link>
@@ -160,13 +159,13 @@ export default function HomePage() {
           <>
             {/* Page Title */}
             <div className="mb-8">
-              <h2 className="text-3xl font-semibold text-primary mb-2">Compliance Dashboard</h2>
-              <p className="text-gray-600">Overview of all compliance modules and activities</p>
+              <h2 className="text-3xl font-semibold text-white mb-2">Compliance Dashboard</h2>
+              <p className="text-white/80">Overview of all compliance modules and activities</p>
             </div>
 
             {/* Enhanced Quick Actions */}
             <EnhancedCard 
-              className="p-6 mb-8"
+              className="p-6 mb-8 shimmer-effect gloss-overlay"
               shadowIntensity="light"
               glowEffect={true}
             >
@@ -175,16 +174,16 @@ export default function HomePage() {
                 Quick Actions
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <Link href="/non-conforming" className="btn-primary text-center hover:scale-105 transition-all">
+                <Link href="/non-conforming" className="btn-primary btn-luxury text-center hover:scale-105 transition-all">
                   Report Non-Conformance
                 </Link>
-                <Link href="/maintenance" className="btn-primary text-center hover:scale-105 transition-all">
+                <Link href="/maintenance" className="btn-primary btn-luxury text-center hover:scale-105 transition-all">
                   Submit Maintenance Request
                 </Link>
-                <Link href="/complaints" className="btn-secondary text-center hover:scale-105 transition-all">
+                <Link href="/complaints" className="btn-secondary btn-luxury text-center hover:scale-105 transition-all">
                   Handle Customer Complaint
                 </Link>
-                <Link href="/report/new" className="btn-secondary text-center hover:scale-105 transition-all">
+                <Link href="/report/new" className="btn-secondary btn-luxury text-center hover:scale-105 transition-all">
                   Submit Confidential Report
                 </Link>
               </div>
@@ -199,25 +198,25 @@ export default function HomePage() {
                   hover3D={true}
                   glowEffect={true}
                   shadowIntensity="medium"
-                  className="p-6 h-full transition-all duration-300"
+                  className="p-6 h-full transition-all duration-300 card-luxury shimmer-effect"
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <div className={`p-3 rounded-lg ${module.color} transition-transform duration-200 hover:scale-110`}>
+                    <div className="p-3 rounded-lg bg-transparent text-white transition-transform duration-200 hover:scale-110 hover:bg-white/10">
                       {module.icon}
                     </div>
                     <StatusBadge status={module.status} />
                   </div>
-                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-secondary transition-colors">
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-secondary transition-colors">
                     {module.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4 dark:text-gray-400">
+                  <p className="text-sm text-white/80 mb-4">
                     {module.description}
                   </p>
                   <div className="flex justify-between text-sm mt-auto">
                     {Object.entries(module.stats).map(([key, value]) => (
                       <div key={key} className="text-center">
-                        <div className="font-semibold text-primary text-lg">{value}</div>
-                        <div className="text-gray-500 capitalize text-xs dark:text-gray-400">{key}</div>
+                        <div className="font-semibold text-white text-lg">{value}</div>
+                        <div className="text-white/60 capitalize text-xs">{key}</div>
                       </div>
                     ))}
                   </div>
@@ -226,20 +225,20 @@ export default function HomePage() {
             </ListStaggerReveal>
 
             {/* System Status */}
-            <div className="mt-8 bg-gray-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-primary mb-4">System Status</h3>
+            <div className="mt-8 bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6 luxury-glass gloss-overlay">
+              <h3 className="text-lg font-semibold text-white mb-4">System Status</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm">All Systems Operational</span>
+                  <span className="text-sm text-white/90">All Systems Operational</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  <span className="text-sm">98% Uptime This Month</span>
+                  <TrendingUp className="w-4 h-4 text-secondary" />
+                  <span className="text-sm text-white/90">98% Uptime This Month</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <AlertTriangle className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm">3 Pending Reviews</span>
+                  <AlertTriangle className="w-4 h-4 text-secondary" />
+                  <span className="text-sm text-white/90">3 Pending Reviews</span>
                 </div>
               </div>
             </div>
@@ -247,15 +246,15 @@ export default function HomePage() {
         ) : (
           // Individual Module View
           <div>
-            <h2 className="text-3xl font-semibold text-primary mb-8">
+            <h2 className="text-3xl font-semibold text-white mb-8">
               {modules.find(m => m.id === activeModule)?.title}
             </h2>
-            <div className="bg-white rounded-xl border border-gray-200 p-8">
-              <p className="text-gray-600 mb-6">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-8">
+              <p className="text-white/80 mb-6">
                 {modules.find(m => m.id === activeModule)?.description}
               </p>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-blue-800">
+              <div className="bg-primary/20 border border-primary/30 rounded-lg p-4">
+                <p className="text-white">
                   This module is currently being configured. Full functionality will be available soon.
                 </p>
               </div>
@@ -265,8 +264,8 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-gray-200 py-6 text-center text-sm text-gray-600">
-        <p>© 2025 OhiSee! Operations Intelligence Centre | Multi-Tenant Compliance Platform | All Rights Reserved</p>
+      <footer className="mt-auto border-t border-white/20 py-6 text-center text-sm text-white/80">
+        <p>© 2025 OhiSee! Operations Intelligence Centre | All Rights Reserved</p>
       </footer>
     </div>
   )
