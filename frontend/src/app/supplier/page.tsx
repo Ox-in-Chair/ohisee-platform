@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Handshake, ArrowLeft, Building2 } from 'lucide-react'
+import { Users, ArrowLeft, Building2 } from 'lucide-react'
 
 export default function SupplierManagementPage() {
   return (
