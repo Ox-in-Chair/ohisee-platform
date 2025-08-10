@@ -3,6 +3,7 @@ import './globals.css'
 import { Providers } from '@/components/providers'
 import { Toaster } from 'react-hot-toast'
 import { FloatingThemeToggle } from '@/components/ui/theme'
+import { PWAWrapper } from '@/components/PWAWrapper'
 
 export const metadata: Metadata = {
   title: 'OhiSee! - Operations Intelligence Centre',
@@ -20,21 +21,28 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#373658" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="OhiSee!" />
       </head>
       <body className="min-h-screen bg-white font-sans antialiased theme-transition" style={{fontFamily: 'Poppins, sans-serif'}}>
         <Providers>
-          {children}
-          <FloatingThemeToggle />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#373658',
-                color: '#fff',
-              },
-            }}
-          />
+          <PWAWrapper>
+            {children}
+            <FloatingThemeToggle />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: '#373658',
+                  color: '#fff',
+                },
+              }}
+            />
+          </PWAWrapper>
         </Providers>
       </body>
     </html>
