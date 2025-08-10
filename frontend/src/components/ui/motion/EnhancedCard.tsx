@@ -105,8 +105,7 @@ export function EnhancedCard({
     ...getGlowEffect()
   }
 
-  const cardProps = {
-    ref: cardRef,
+  const commonProps = {
     className: baseClasses,
     style: cardStyle,
     onMouseMove: handleMouseMove,
@@ -117,14 +116,14 @@ export function EnhancedCard({
 
   if (href && !disabled) {
     return (
-      <a href={href} {...cardProps}>
+      <a href={href} {...commonProps}>
         {children}
       </a>
     )
   }
 
   return (
-    <div {...cardProps}>
+    <div ref={cardRef} {...commonProps}>
       {children}
     </div>
   )
