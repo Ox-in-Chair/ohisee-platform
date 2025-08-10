@@ -7,6 +7,8 @@ import {
   FolderOpen, GraduationCap, Search,
   Home, AlertTriangle, TrendingUp
 } from 'lucide-react'
+import { EnhancedCard } from '@/components/ui/motion'
+import { ListStaggerReveal } from '@/components/ui/micro'
 
 // OhiSee! Homepage - Now the Dashboard
 export default function HomePage() {
@@ -154,53 +156,66 @@ export default function HomePage() {
               <p className="text-gray-600">Overview of all compliance modules and activities</p>
             </div>
 
-            {/* Quick Actions */}
-            <div className="card-interactive glass-surface p-6 mb-8">
-              <h3 className="text-xl font-semibold text-primary mb-4">Quick Actions</h3>
+            {/* Enhanced Quick Actions */}
+            <EnhancedCard 
+              className="p-6 mb-8"
+              shadowIntensity="light"
+              glowEffect={true}
+            >
+              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center gap-2">
+                <Search className="w-5 h-5" />
+                Quick Actions
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <Link href="/non-conforming" className="btn-primary text-center">
+                <Link href="/non-conforming" className="btn-primary text-center hover:scale-105 transition-all">
                   Report Non-Conformance
                 </Link>
-                <Link href="/maintenance" className="btn-primary text-center">
+                <Link href="/maintenance" className="btn-primary text-center hover:scale-105 transition-all">
                   Submit Maintenance Request
                 </Link>
-                <Link href="/complaints" className="btn-secondary text-center">
+                <Link href="/complaints" className="btn-secondary text-center hover:scale-105 transition-all">
                   Handle Customer Complaint
                 </Link>
-                <Link href="/report/new" className="btn-secondary text-center">
+                <Link href="/report/new" className="btn-secondary text-center hover:scale-105 transition-all">
                   Submit Confidential Report
                 </Link>
               </div>
-            </div>
+            </EnhancedCard>
 
-            {/* Module Grid with Stagger Animation */}
-            <div className="stagger-children grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Enhanced Module Grid */}
+            <ListStaggerReveal className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {modules.map((module, index) => (
-                <Link
+                <EnhancedCard
                   key={module.id}
                   href={module.href}
-                  className="card-interactive"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  hover3D={true}
+                  glowEffect={true}
+                  shadowIntensity="medium"
+                  className="p-6 h-full transition-all duration-300"
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <div className={`p-3 rounded-lg ${module.color}`}>
+                    <div className={`p-3 rounded-lg ${module.color} transition-transform duration-200 hover:scale-110`}>
                       {module.icon}
                     </div>
                     <StatusBadge status={module.status} />
                   </div>
-                  <h3 className="text-lg font-semibold text-primary mb-2">{module.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{module.description}</p>
-                  <div className="flex justify-between text-sm">
+                  <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-secondary transition-colors">
+                    {module.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 dark:text-gray-400">
+                    {module.description}
+                  </p>
+                  <div className="flex justify-between text-sm mt-auto">
                     {Object.entries(module.stats).map(([key, value]) => (
-                      <div key={key}>
-                        <span className="font-semibold text-primary">{value}</span>
-                        <span className="text-gray-500 block capitalize">{key}</span>
+                      <div key={key} className="text-center">
+                        <div className="font-semibold text-primary text-lg">{value}</div>
+                        <div className="text-gray-500 capitalize text-xs dark:text-gray-400">{key}</div>
                       </div>
                     ))}
                   </div>
-                </Link>
+                </EnhancedCard>
               ))}
-            </div>
+            </ListStaggerReveal>
 
             {/* System Status */}
             <div className="mt-8 bg-gray-50 rounded-xl p-6">
