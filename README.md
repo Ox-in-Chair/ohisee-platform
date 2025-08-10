@@ -1,15 +1,15 @@
 # OhiSee! - Operations Intelligence Centre
 
 ## 🎯 Overview
-OhiSee! (Operations Intelligence Centre) is a comprehensive compliance management system designed for Kangopak, featuring confidential reporting (whistleblower) capabilities and 6 integrated compliance modules. The platform ensures GMP (Good Manufacturing Practice) compliance with full audit trails and secure anonymous reporting.
+OhiSee! (Operations Intelligence Centre) is a production-ready, scalable, multi-tenant compliance management system featuring 7 integrated compliance modules. The platform supports multiple compliance standards with full audit trails and secure anonymous reporting.
 
 ## 🌟 Key Features
 - **Confidential Reporting**: Secure, anonymous whistleblower system
 - **AI-Powered Assistant**: Restricted AI for report improvement (4 specific functions only)
-- **Multi-Module System**: 6 integrated compliance modules
+- **Multi-Module System**: 7 integrated compliance modules
 - **Audit Trail**: Complete logging of all actions with timestamps
 - **Device Tracking**: Compliance with regulatory requirements
-- **GMP Compliant**: Configurable compliance standards (GMP, BRCGS, ISO, etc.)
+- **Multi-Standard Compliant**: Configurable compliance standards (GMP, BRCGS, ISO, etc.)
 
 ## 🏗️ Architecture
 

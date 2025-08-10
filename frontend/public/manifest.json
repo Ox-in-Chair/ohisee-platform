@@ -1,0 +1,127 @@
+{
+  "name": "OhiSee! Operations Intelligence Centre",
+  "short_name": "OhiSee!",
+  "description": "Multi-tenant compliance management platform for manufacturing and processing companies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#373658",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Submit Report",
+      "short_name": "Report",
+      "description": "Submit a confidential report",
+      "url": "/report/new",
+      "icons": [
+        {
+          "src": "/icons/shortcut-report.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View compliance dashboard",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/icons/shortcut-dashboard.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Non-Conforming Products",
+      "short_name": "NCA",
+      "description": "Manage non-conforming products",
+      "url": "/non-conforming",
+      "icons": [
+        {
+          "src": "/icons/shortcut-nca.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/dashboard-mobile.png",
+      "sizes": "320x568",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Dashboard view on mobile"
+    },
+    {
+      "src": "/screenshots/dashboard-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard view on desktop"
+    }
+  ],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  }
+}

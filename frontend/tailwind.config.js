@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Kangopak brand colors from Typography.md
+        // OhiSee! brand colors
         primary: {
           DEFAULT: '#373658',
           50: '#f5f5f7',

@@ -14,4 +14,4 @@ services:
       - key: PORT
         value: 5000
       - key: CORS_ORIGIN
-        value: https://ohisee-kangopak.vercel.app
+        value: https://ohisee-platform-frontend.vercel.app

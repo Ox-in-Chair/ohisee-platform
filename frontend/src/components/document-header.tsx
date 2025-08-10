@@ -31,10 +31,10 @@ export function DocumentHeader({
         </span>
       </div>
       <h1 className="text-2xl md:text-3xl font-bold mt-3">
-        {complianceStandard} Confidential Reporting System
+        OhiSee! - Operations Intelligence Centre
       </h1>
       <p className="text-sm md:text-base mt-1 opacity-90">
-        OhiSee! - Operations Intelligence Centre
+        Multi-Tenant Compliance Management Platform
       </p>
     </div>
   )
