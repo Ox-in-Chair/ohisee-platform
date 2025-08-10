@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { EnhancedCard } from '@/components/ui/motion'
 import { ListStaggerReveal } from '@/components/ui/micro'
+import { Header } from '@/components/layout/Header'
 
 // OhiSee! Homepage - Now the Dashboard
 export default function HomePage() {
@@ -88,70 +89,14 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 theme-transition">
-      {/* Header with Enhanced Animations */}
-      <header className="bg-primary text-white shadow-lg">
-        <div className="px-6 py-4 border-b border-white/10">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4 animate-fade-in">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200">
-                <span className="text-primary font-bold text-xl">O</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold">OhiSee!</h1>
-                <p className="text-sm opacity-90">Operations Intelligence Centre</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 animate-slide-in-right">
-              <Link href="/admin" className="btn-ghost text-sm hover:scale-105 transition-all duration-200">
-                Admin Center
-              </Link>
-              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer">
-                <span className="text-white text-sm font-medium">U</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Enhanced Navigation with Micro-interactions */}
-        <nav className="bg-primary-700 px-6 shadow-inner">
-          <div className="flex gap-6 overflow-x-auto">
-            <button
-              onClick={() => setActiveModule('dashboard')}
-              className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 hover:scale-105 relative group ${
-                activeModule === 'dashboard' 
-                  ? 'border-secondary text-white transform scale-105' 
-                  : 'border-transparent text-white/70 hover:text-white hover:bg-white/10 rounded-t-lg'
-              }`}
-            >
-              <Home className={`w-4 h-4 transition-transform ${activeModule === 'dashboard' ? 'rotate-12' : 'group-hover:scale-110'}`} />
-              Dashboard
-              {activeModule === 'dashboard' && (
-                <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
-              )}
-            </button>
-            {modules.map((module) => (
-              <button
-                key={module.id}
-                onClick={() => setActiveModule(module.id)}
-                className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 whitespace-nowrap hover:scale-105 relative group ${
-                  activeModule === module.id 
-                    ? 'border-secondary text-white transform scale-105' 
-                    : 'border-transparent text-white/70 hover:text-white hover:bg-white/10 rounded-t-lg'
-                }`}
-              >
-                <div className={`transition-transform ${activeModule === module.id ? 'rotate-12' : 'group-hover:scale-110'}`}>
-                  {module.icon}
-                </div>
-                {module.title}
-                {activeModule === module.id && (
-                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
-                )}
-              </button>
-            ))}
-          </div>
-        </nav>
-      </header>
+    <div className="min-h-screen theme-transition">
+      {/* Global Header Component */}
+      <Header 
+        activeModule={activeModule}
+        setActiveModule={setActiveModule}
+        modules={modules}
+        showNavigation={true}
+      />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
@@ -160,7 +105,7 @@ export default function HomePage() {
             {/* Page Title */}
             <div className="mb-8">
               <h2 className="text-3xl font-semibold text-white mb-2">Compliance Dashboard</h2>
-              <p className="text-white/80">Overview of all compliance modules and activities</p>
+              <p className="text-white/90">Overview of all compliance modules and activities</p>
             </div>
 
             {/* Enhanced Quick Actions */}
@@ -169,7 +114,7 @@ export default function HomePage() {
               shadowIntensity="light"
               glowEffect={true}
             >
-              <h3 className="text-xl font-semibold text-primary mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <Search className="w-5 h-5" />
                 Quick Actions
               </h3>
@@ -248,11 +193,11 @@ export default function HomePage() {
             <h2 className="text-3xl font-semibold text-white mb-8">
               {modules.find(m => m.id === activeModule)?.title}
             </h2>
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-8">
-              <p className="text-white/80 mb-6">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-8 luxury-glass">
+              <p className="text-white/90 mb-6">
                 {modules.find(m => m.id === activeModule)?.description}
               </p>
-              <div className="bg-primary/20 border border-primary/30 rounded-lg p-4">
+              <div className="bg-white/10 border border-white/20 rounded-lg p-4">
                 <p className="text-white">
                   This module is currently being configured. Full functionality will be available soon.
                 </p>
