@@ -6,7 +6,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import { errorHandler } from './middleware/errorHandler'
 import { rateLimiter } from './middleware/rateLimiter'
-import routes from './routes'
+// import routes from './routes' // Temporarily commented out to test
 import { initializeDatabase } from './db/connection'
 import { logger } from './utils/logger'
 
@@ -18,7 +18,12 @@ const PORT = process.env.PORT || 5000
 app.set('trust proxy', true) // Enable trust proxy for Render load balancer
 app.use(helmet())
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'https://ohisee-platform-frontend.vercel.app', // Correct frontend URL
+    'https://ohisee-platform.vercel.app', // Keep old one for compatibility
+    process.env.CORS_ORIGIN
+  ].filter(Boolean),
   credentials: true,
 }))
 app.use(compression())
@@ -27,7 +32,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 app.use('/api', rateLimiter)
-app.use('/api', routes)
+// app.use('/api', routes) // Temporarily commented out to test compilation
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
