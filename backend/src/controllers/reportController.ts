@@ -153,6 +153,41 @@ export class ReportController {
     }
   }
 
+  async getReports(req: Request, res: Response) {
+    const tenantId = req.headers['x-tenant-id'] as string
+    const db = getTenantDb(tenantId)
+
+    try {
+      let reports: any[]
+
+      if (typeof db.getReports === 'function') {
+        // Mock database
+        reports = await db.getReports(tenantId)
+      } else {
+        // Real database
+        reports = await db('reports')
+          .select(['id', 'reference_number', 'category', 'title', 'status', 'priority', 'created_at', 'updated_at'])
+          .orderBy('created_at', 'desc')
+      }
+
+      res.json({
+        reports: reports.map(report => ({
+          id: report.id,
+          referenceNumber: report.reference_number,
+          category: report.category,
+          title: report.title,
+          status: report.status,
+          priority: report.priority,
+          submittedAt: report.created_at,
+          lastUpdated: report.updated_at,
+        })),
+      })
+    } catch (error) {
+      logger.error('Error getting reports:', error)
+      throw error
+    }
+  }
+
   async getCategoryStats(req: Request, res: Response) {
     const tenantId = req.headers['x-tenant-id'] as string
     const db = getTenantDb(tenantId)

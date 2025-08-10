@@ -1,0 +1,96 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.detectBadFaith = void 0;
+const openai_1 = __importDefault(require("openai"));
+const logger_1 = require("../utils/logger");
+let openai = null;
+const getOpenAIClient = () => {
+    if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your-openai-api-key') {
+        return null;
+    }
+    if (!openai) {
+        openai = new openai_1.default({
+            apiKey: process.env.OPENAI_API_KEY,
+        });
+    }
+    return openai;
+};
+const detectBadFaith = async (data) => {
+    const client = getOpenAIClient();
+    // Return mock response if OpenAI is not configured
+    if (!client) {
+        logger_1.logger.info('OpenAI not configured, using mock bad faith detection');
+        return {
+            score: Math.floor(Math.random() * 30), // Low score for testing
+            flags: [],
+            suggestions: ['Consider adding more specific details', 'Include dates and times if possible'],
+        };
+    }
+    try {
+        const prompt = `
+      Analyze the following confidential report for potential bad faith indicators.
+      Score from 0-100 where:
+      - 0-20: Appears genuine
+      - 21-40: Minor concerns
+      - 41-60: Moderate concerns
+      - 61-80: Significant concerns
+      - 81-100: Likely bad faith
+
+      Report Details:
+      Title: ${data.title}
+      Category: ${data.category}
+      Description: ${data.description}
+      Previously Reported: ${data.previous_report}
+
+      Consider:
+      1. Vague or exaggerated language
+      2. Lack of specific details
+      3. Personal vendettas vs legitimate concerns
+      4. Consistency and plausibility
+      5. Presence of actionable information
+
+      Respond in JSON format:
+      {
+        "score": number,
+        "flags": ["flag1", "flag2"],
+        "suggestions": ["suggestion1", "suggestion2"]
+      }
+    `;
+        const response = await client.chat.completions.create({
+            model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
+            messages: [
+                {
+                    role: 'system',
+                    content: 'You are an expert in analyzing workplace reports for authenticity and good faith.',
+                },
+                {
+                    role: 'user',
+                    content: prompt,
+                },
+            ],
+            response_format: { type: 'json_object' },
+            temperature: 0.3,
+            max_tokens: 500,
+        });
+        const analysis = JSON.parse(response.choices[0].message.content || '{}');
+        logger_1.logger.info(`Bad faith detection completed. Score: ${analysis.score}`);
+        return {
+            score: analysis.score || 0,
+            flags: analysis.flags || [],
+            suggestions: analysis.suggestions || [],
+        };
+    }
+    catch (error) {
+        logger_1.logger.error('Bad faith detection failed:', error);
+        return {
+            score: 0,
+            flags: ['detection_failed'],
+            suggestions: [],
+        };
+    }
+};
+exports.detectBadFaith = detectBadFaith;
+//# sourceMappingURL=badFaithDetection.js.map

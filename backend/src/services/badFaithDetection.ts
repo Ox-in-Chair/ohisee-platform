@@ -1,9 +1,21 @@
 import OpenAI from 'openai'
 import { logger } from '../utils/logger'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+let openai: OpenAI | null = null
+
+const getOpenAIClient = (): OpenAI | null => {
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your-openai-api-key') {
+    return null
+  }
+  
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  }
+  
+  return openai
+}
 
 interface BadFaithAnalysis {
   score: number
@@ -19,8 +31,10 @@ interface ReportData {
 }
 
 export const detectBadFaith = async (data: ReportData): Promise<BadFaithAnalysis> => {
+  const client = getOpenAIClient()
+  
   // Return mock response if OpenAI is not configured
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your-openai-api-key') {
+  if (!client) {
     logger.info('OpenAI not configured, using mock bad faith detection')
     return {
       score: Math.floor(Math.random() * 30), // Low score for testing
@@ -60,7 +74,7 @@ export const detectBadFaith = async (data: ReportData): Promise<BadFaithAnalysis
       }
     `
 
-    const response = await openai.chat.completions.create({
+    const response = await client.chat.completions.create({
       model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
       messages: [
         {

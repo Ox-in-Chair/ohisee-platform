@@ -19,6 +19,14 @@ const validateReport = [
   body('email').optional().isEmail(),
 ]
 
+router.get('/', getTenantFromRequest, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await reportController.getReports(req, res)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post(
   '/',
   getTenantFromRequest,

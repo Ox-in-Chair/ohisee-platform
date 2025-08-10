@@ -9,11 +9,11 @@ import { logger } from '../utils/logger'
 
 const router = Router()
 
-const generateToken = (userId: string, email: string, role: string, tenantId: string) => {
+const generateToken = (userId: string, email: string, role: string, tenantId: string): string => {
   return jwt.sign(
     { userId, email, role, tenantId },
-    process.env.JWT_SECRET!,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+    process.env.JWT_SECRET as string,
+    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' } as jwt.SignOptions
   )
 }
 

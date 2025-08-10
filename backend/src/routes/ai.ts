@@ -5,9 +5,22 @@ import { AppError } from '../middleware/errorHandler'
 import { logger } from '../utils/logger'
 
 const router = Router()
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+
+let openai: OpenAI | null = null
+
+const getOpenAIClient = (): OpenAI | null => {
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your-openai-api-key') {
+    return null
+  }
+  
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  }
+  
+  return openai
+}
 
 router.post(
   '/improve-text',
@@ -23,9 +36,10 @@ router.post(
       }
 
       const { text, prompt } = req.body
+      const client = getOpenAIClient()
 
       // Return mock improvement if OpenAI is not configured
-      if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your-openai-api-key') {
+      if (!client) {
         logger.info('OpenAI not configured, using mock text improvement')
         
         // Simple mock improvement - just clean up spacing and add structure
@@ -55,7 +69,7 @@ router.post(
         ? `${prompt}\n\nOriginal text: ${text}`
         : `Please improve the following text to make it clearer and more professional:\n\n${text}`
 
-      const response = await openai.chat.completions.create({
+      const response = await client.chat.completions.create({
         model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
         messages: [
           { role: 'system', content: systemPrompt },
