@@ -31,7 +31,7 @@ app.use(morgan('combined', { stream: { write: (message) => logger.info(message.t
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
-app.use('/api', rateLimiter)
+// app.use('/api', rateLimiter) // Temporarily disabled
 // app.use('/api', routes) // Temporarily commented out to test compilation
 
 app.get('/health', (_req, res) => {
