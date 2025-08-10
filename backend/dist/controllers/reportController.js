@@ -9,7 +9,7 @@ const logger_1 = require("../utils/logger");
 class ReportController {
     async createReport(req, res) {
         const tenantId = req.headers['x-tenant-id'];
-        const db = (0, connection_1.getTenantDb)(tenantId);
+        const db = (0, connection_1.getDb)();
         const { category, title, description, location, date_occurred, witnesses, previous_report, email, } = req.body;
         const badFaithScore = await (0, badFaithDetection_1.detectBadFaith)({
             title,
@@ -94,7 +94,7 @@ class ReportController {
     async trackReport(req, res) {
         const { referenceNumber } = req.params;
         const tenantId = req.headers['x-tenant-id'];
-        const db = (0, connection_1.getTenantDb)(tenantId);
+        const db = (0, connection_1.getDb)();
         try {
             let report;
             let updates = [];
@@ -136,7 +136,7 @@ class ReportController {
     }
     async getReports(req, res) {
         const tenantId = req.headers['x-tenant-id'];
-        const db = (0, connection_1.getTenantDb)(tenantId);
+        const db = (0, connection_1.getDb)();
         try {
             let reports;
             if (typeof db.getReports === 'function') {
@@ -169,7 +169,7 @@ class ReportController {
     }
     async getCategoryStats(req, res) {
         const tenantId = req.headers['x-tenant-id'];
-        const db = (0, connection_1.getTenantDb)(tenantId);
+        const db = (0, connection_1.getDb)();
         try {
             const stats = await db('reports')
                 .select('category')

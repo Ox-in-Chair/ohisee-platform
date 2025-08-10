@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
-import { getTenantDb } from '../db/connection'
+import { getDb, getTenantDb } from '../db/connection'
 import { sendReportNotification } from '../services/emailService'
 import { detectBadFaith } from '../services/badFaithDetection'
 import { logger } from '../utils/logger'
@@ -8,7 +8,7 @@ import { logger } from '../utils/logger'
 export class ReportController {
   async createReport(req: Request, res: Response) {
     const tenantId = req.headers['x-tenant-id'] as string
-    const db = getTenantDb(tenantId)
+    const db = getDb()
     
     const {
       category,
@@ -109,7 +109,7 @@ export class ReportController {
   async trackReport(req: Request, res: Response) {
     const { referenceNumber } = req.params
     const tenantId = req.headers['x-tenant-id'] as string
-    const db = getTenantDb(tenantId)
+    const db = getDb()
 
     try {
       let report: any
@@ -155,7 +155,7 @@ export class ReportController {
 
   async getReports(req: Request, res: Response) {
     const tenantId = req.headers['x-tenant-id'] as string
-    const db = getTenantDb(tenantId)
+    const db = getDb()
 
     try {
       let reports: any[]
@@ -190,7 +190,7 @@ export class ReportController {
 
   async getCategoryStats(req: Request, res: Response) {
     const tenantId = req.headers['x-tenant-id'] as string
-    const db = getTenantDb(tenantId)
+    const db = getDb()
 
     try {
       const stats = await db('reports')

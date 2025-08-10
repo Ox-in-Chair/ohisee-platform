@@ -77,6 +77,68 @@ router.post('/improve-text', [
         next(new errorHandler_1.AppError('Failed to improve text', 500));
     }
 });
+router.post('/assist', [
+    (0, express_validator_1.body)('text').isLength({ min: 1 }).trim(),
+    (0, express_validator_1.body)('taskType').isIn(['improve_clarity', 'make_professional', 'fix_grammar', 'create_summary']),
+], async (req, res, next) => {
+    try {
+        const errors = (0, express_validator_1.validationResult)(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid task type. Allowed types: improve_clarity, make_professional, fix_grammar, create_summary'
+            });
+        }
+        const { text, taskType } = req.body;
+        const client = getOpenAIClient();
+        // Return mock improvement if OpenAI is not configured
+        if (!client) {
+            logger_1.logger.info('OpenAI not configured, using mock AI assistance');
+            const taskNames = {
+                improve_clarity: 'Improve Clarity',
+                make_professional: 'Make Professional',
+                fix_grammar: 'Fix Grammar',
+                create_summary: 'Create Summary'
+            };
+            // Simple mock improvement based on task type
+            let improvedText = text.trim();
+            switch (taskType) {
+                case 'improve_clarity':
+                    improvedText = improvedText.charAt(0).toUpperCase() + improvedText.slice(1);
+                    if (!improvedText.endsWith('.'))
+                        improvedText += '.';
+                    break;
+                case 'make_professional':
+                    improvedText = `I would like to report that ${improvedText.toLowerCase()}.`;
+                    break;
+                case 'fix_grammar':
+                    improvedText = improvedText.replace(/\s+/g, ' ').trim();
+                    break;
+                case 'create_summary':
+                    improvedText = improvedText.slice(0, 50) + (improvedText.length > 50 ? '...' : '');
+                    break;
+            }
+            return res.json({
+                success: true,
+                taskType,
+                taskName: taskNames[taskType],
+                originalLength: text.length,
+                improvedLength: improvedText.length,
+                improvedText,
+            });
+        }
+        // Real OpenAI processing would go here
+        res.json({
+            success: true,
+            taskType,
+            improvedText: text, // Placeholder
+        });
+    }
+    catch (error) {
+        logger_1.logger.error('AI assistance failed:', error);
+        next(error);
+    }
+});
 router.post('/generate-summary', [(0, express_validator_1.body)('reportId').isUUID()], async (req, res, next) => {
     try {
         const errors = (0, express_validator_1.validationResult)(req);
