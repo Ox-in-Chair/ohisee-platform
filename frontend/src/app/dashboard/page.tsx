@@ -13,64 +13,74 @@ export default function DashboardPage() {
 
   const modules = [
     {
-      id: 'reporting',
+      id: 'shift-changeovers',
+      title: 'Shift Change-overs',
+      icon: <TrendingUp className="w-6 h-6" />,
+      description: 'Shift handover documentation and operational continuity tracking',
+      status: 'development',
+      stats: { shifts: 0, handovers: 0, pending: 0 },
+      color: 'bg-gray-100 text-gray-600',
+      href: '/shift-changeovers'
+    },
+    {
+      id: 'process-control',
+      title: 'Process Control Reporting',
+      icon: <CheckCircle className="w-6 h-6" />,
+      description: 'Process specifications, critical control points, job cards, and production monitoring',
+      status: 'development', 
+      stats: { ccps: 0, specs: 0, monitoring: 0 },
+      color: 'bg-gray-100 text-gray-600',
+      href: '/process-control'
+    },
+    {
+      id: 'non-conforming',
+      title: 'Control of Non-Conforming Product',
+      icon: <AlertTriangle className="w-6 h-6" />,
+      description: 'Non-conformance identification, quarantine, disposition, and corrective actions (NCA system)',
+      status: 'ready',
+      stats: { ncas: 8, open: 3, overdue: 1 },
+      color: 'bg-orange-100 text-orange-800',
+      href: '/non-conforming'
+    },
+    {
+      id: 'maintenance',
+      title: 'Maintenance Compliance',
+      icon: <Search className="w-6 h-6" />,
+      description: 'Planned preventive maintenance, job cards, condition monitoring, and post-maintenance clearance',
+      status: 'active',
+      stats: { planned: 12, reactive: 4, overdue: 2 },
+      color: 'bg-blue-100 text-blue-800',
+      href: '/maintenance'
+    },
+    {
+      id: 'complaints',
+      title: 'Complaint Handling',
+      icon: <Users className="w-6 h-6" />,
+      description: 'Customer complaint capture, investigation, corrective actions, and cycle time management',
+      status: 'active',
+      stats: { open: 5, investigating: 2, resolved: 28 },
+      color: 'bg-purple-100 text-purple-800',
+      href: '/complaints'
+    },
+    {
+      id: 'confidential-reporting',
       title: 'Confidential Reporting',
       icon: <Bell className="w-6 h-6" />,
-      description: 'Anonymous whistleblower system with AI-assisted report writing',
+      description: 'Anonymous whistleblower system with secure reporting and investigation processes',
       status: 'active',
-      stats: { open: 12, pending: 3, resolved: 45 },
+      stats: { open: 3, investigating: 1, resolved: 15 },
       color: 'bg-yellow-100 text-yellow-800',
       href: '/report/new'
     },
     {
-      id: 'quality',
-      title: 'Quality Management',
-      icon: <CheckCircle className="w-6 h-6" />,
-      description: 'Track quality issues, manage corrective actions, monitor metrics',
-      status: 'active',
-      stats: { active: 8, monthly: 15, rate: '92%' },
-      color: 'bg-blue-100 text-blue-800',
-      href: '/quality'
-    },
-    {
-      id: 'supplier',
-      title: 'Supplier Management',
-      icon: <Users className="w-6 h-6" />,
-      description: 'Manage supplier information, track certifications, monitor performance',
-      status: 'setup',
-      stats: { active: 24, pending: 5, expiring: 3 },
-      color: 'bg-purple-100 text-purple-800',
-      href: '/supplier'
-    },
-    {
-      id: 'document',
-      title: 'Document Control',
+      id: 'waste-management',
+      title: 'Waste Management',
       icon: <FolderOpen className="w-6 h-6" />,
-      description: 'Centralized document management with version control and workflows',
-      status: 'setup',
-      stats: { total: 156, review: 12, updates: 8 },
-      color: 'bg-orange-100 text-orange-800',
-      href: '/document'
-    },
-    {
-      id: 'training',
-      title: 'Training Management',
-      icon: <GraduationCap className="w-6 h-6" />,
-      description: 'Track employee training, manage certifications, schedule courses',
-      status: 'new',
-      stats: { employees: 45, courses: 18, expiring: 7 },
+      description: 'Waste manifest tracking, disposal records, and environmental compliance monitoring',
+      status: 'active',
+      stats: { manifest: 15, disposed: 8, overdue: 0 },
       color: 'bg-green-100 text-green-800',
-      href: '/training'
-    },
-    {
-      id: 'audit',
-      title: 'Audit Management',
-      icon: <Search className="w-6 h-6" />,
-      description: 'Schedule audits, track findings, manage corrective actions',
-      status: 'new',
-      stats: { upcoming: 3, findings: 12, score: '85%' },
-      color: 'bg-red-100 text-red-800',
-      href: '/audit'
+      href: '/waste-management'
     }
   ]
 
@@ -82,7 +92,7 @@ export default function DashboardPage() {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-primary font-bold text-xl">K</span>
+                <span className="text-primary font-bold text-xl">O</span>
               </div>
               <div>
                 <h1 className="text-2xl font-bold">OhiSee!</h1>
@@ -90,7 +100,10 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-sm">GMP Compliant</span>
+              <span className="text-sm">Multi-Tenant Platform</span>
+              <Link href="/admin" className="text-sm text-white/80 hover:text-white border border-white/20 px-3 py-1 rounded-lg">
+                Admin Center
+              </Link>
               <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
                 <span className="text-white text-sm font-medium">U</span>
               </div>
@@ -144,18 +157,18 @@ export default function DashboardPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
               <h3 className="text-xl font-semibold text-primary mb-4">Quick Actions</h3>
               <div className="flex flex-wrap gap-3">
-                <Link href="/report/new" className="btn-primary">
+                <Link href="/non-conforming" className="btn-primary">
+                  Report Non-Conformance
+                </Link>
+                <Link href="/maintenance" className="btn-primary">
+                  Submit Maintenance Request
+                </Link>
+                <Link href="/complaints" className="btn-secondary">
+                  Handle Customer Complaint
+                </Link>
+                <Link href="/report/new" className="btn-secondary">
                   Submit Confidential Report
                 </Link>
-                <Link href="/quality/issue" className="btn-primary">
-                  Report Quality Issue
-                </Link>
-                <button className="btn-secondary">
-                  Upload Document
-                </button>
-                <button className="btn-secondary">
-                  View Training
-                </button>
               </div>
             </div>
 
@@ -228,7 +241,7 @@ export default function DashboardPage() {
 
       {/* Footer */}
       <footer className="mt-auto border-t border-gray-200 py-6 text-center text-sm text-gray-600">
-        <p>© 2025 Kangopak - OhiSee! Operations Intelligence Centre | GMP Compliant | All Rights Reserved</p>
+        <p>© 2025 OhiSee! Operations Intelligence Centre | Multi-Tenant Compliance Platform | All Rights Reserved</p>
       </footer>
     </div>
   )
@@ -237,13 +250,19 @@ export default function DashboardPage() {
 function StatusBadge({ status }: { status: string }) {
   const styles = {
     active: 'bg-green-100 text-green-800',
-    setup: 'bg-yellow-100 text-yellow-800',
-    new: 'bg-blue-100 text-blue-800'
+    ready: 'bg-orange-100 text-orange-800',
+    development: 'bg-gray-100 text-gray-600'
+  }
+  
+  const labels = {
+    active: 'Active',
+    ready: 'Ready for Development',
+    development: 'In Development'
   }
   
   return (
     <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status as keyof typeof styles]}`}>
-      {status === 'setup' ? 'Setup Required' : status.charAt(0).toUpperCase() + status.slice(1)}
+      {labels[status as keyof typeof labels] || status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   )
 }

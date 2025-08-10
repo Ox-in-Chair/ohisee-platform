@@ -30,7 +30,7 @@ export async function apiCall<T = any>(
   const defaultOptions: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
-      'x-tenant-id': 'kangopak', // Add tenant ID for multi-tenant support
+      'x-tenant-id': process.env.NEXT_PUBLIC_TENANT_ID || 'demo', // Add tenant ID for multi-tenant support
       ...options.headers,
     },
   };

@@ -1,5 +1,5 @@
 -- OhiSee! Platform Database Schema
--- PostgreSQL Database for Kangopak Compliance Management System
+-- PostgreSQL Database for Multi-Tenant Compliance Management System
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

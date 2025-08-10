@@ -14,7 +14,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-xl font-semibold">Access Full Platform</h2>
-              <p className="opacity-90 text-sm mt-1">View all 6 compliance modules in the dashboard</p>
+              <p className="opacity-90 text-sm mt-1">View all 7 compliance modules in the dashboard</p>
             </div>
             <Link href="/dashboard" className="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
               Open Dashboard

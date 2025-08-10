@@ -5,8 +5,8 @@ import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: 'OhiSee! - Operations Intelligence Centre',
-  description: 'Comprehensive compliance management system for Kangopak with secure confidential reporting',
-  keywords: 'OhiSee, operations intelligence, confidential reporting, whistleblower, GMP compliance, Kangopak',
+  description: 'Multi-tenant compliance management platform with 7 integrated modules for manufacturing excellence',
+  keywords: 'OhiSee, operations intelligence, compliance management, multi-tenant, manufacturing, process control, maintenance',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 

@@ -4,8 +4,8 @@
   "framework": "nextjs",
   "env": {
     "NEXT_PUBLIC_API_URL": "https://ohisee-backend.onrender.com",
-    "NEXT_PUBLIC_APP_NAME": "Kangopak Confidential Reporting",
-    "NEXT_PUBLIC_TENANT_ID": "kangopak",
-    "NEXT_PUBLIC_COMPLIANCE_STANDARD": "GMP"
+    "NEXT_PUBLIC_APP_NAME": "OhiSee! Operations Intelligence Centre",
+    "NEXT_PUBLIC_TENANT_ID": "demo",
+    "NEXT_PUBLIC_COMPLIANCE_STANDARD": "Multi-Standard"
   }
 }

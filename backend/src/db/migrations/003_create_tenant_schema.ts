@@ -68,10 +68,10 @@ export async function up(knex: Knex): Promise<void> {
   }
 
   await createTenantTables('tenant_default')
-  await createTenantTables('tenant_kangopak')
+  await createTenantTables('tenant_demo')
 }
 
 export async function down(knex: Knex): Promise<void> {
   await knex.raw('DROP SCHEMA IF EXISTS tenant_default CASCADE')
-  await knex.raw('DROP SCHEMA IF EXISTS tenant_kangopak CASCADE')
+  await knex.raw('DROP SCHEMA IF EXISTS tenant_demo CASCADE')
 }
