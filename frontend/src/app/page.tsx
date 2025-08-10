@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { DocumentHeader } from '@/components/document-header'
 import { Shield, FileText, Users, Bell } from 'lucide-react'
 
+// OhiSee! Homepage - Cloud Deployment Version
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
