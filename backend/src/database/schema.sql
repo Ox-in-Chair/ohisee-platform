@@ -20,21 +20,44 @@ CREATE TABLE IF NOT EXISTS users (
 -- Reports table (Confidential Reporting Module)
 CREATE TABLE IF NOT EXISTS reports (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    report_number VARCHAR(20) UNIQUE NOT NULL,
+    reference_number VARCHAR(20) UNIQUE NOT NULL,
     category VARCHAR(100) NOT NULL,
-    priority VARCHAR(20) NOT NULL,
+    priority VARCHAR(20) NOT NULL DEFAULT 'medium',
     title VARCHAR(500) NOT NULL,
     description TEXT NOT NULL,
-    reporter_name VARCHAR(255),
+    location VARCHAR(255),
+    date_occurred DATE,
+    witnesses TEXT,
+    previous_report BOOLEAN DEFAULT false,
     reporter_email VARCHAR(255),
-    reporter_phone VARCHAR(50),
-    is_anonymous BOOLEAN DEFAULT false,
-    status VARCHAR(50) DEFAULT 'pending',
+    bad_faith_score DECIMAL(3,2) DEFAULT 0.0,
+    bad_faith_flags TEXT,
+    status VARCHAR(50) DEFAULT 'submitted',
     assigned_to UUID REFERENCES users(id),
     resolution TEXT,
     resolved_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Report attachments table
+CREATE TABLE IF NOT EXISTS report_attachments (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    report_id UUID REFERENCES reports(id) ON DELETE CASCADE,
+    filename VARCHAR(255) NOT NULL,
+    mime_type VARCHAR(100),
+    size INTEGER,
+    storage_path TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Report updates table
+CREATE TABLE IF NOT EXISTS report_updates (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    report_id UUID REFERENCES reports(id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    updated_by UUID REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Audit logs table
@@ -160,6 +183,9 @@ CREATE TABLE IF NOT EXISTS audits (
 -- Create indexes for better performance
 CREATE INDEX idx_reports_status ON reports(status);
 CREATE INDEX idx_reports_created_at ON reports(created_at);
+CREATE INDEX idx_reports_reference_number ON reports(reference_number);
+CREATE INDEX idx_report_attachments_report_id ON report_attachments(report_id);
+CREATE INDEX idx_report_updates_report_id ON report_updates(report_id);
 CREATE INDEX idx_audit_logs_timestamp ON audit_logs(timestamp);
 CREATE INDEX idx_audit_logs_user_id ON audit_logs(user_id);
 CREATE INDEX idx_quality_issues_status ON quality_issues(status);
