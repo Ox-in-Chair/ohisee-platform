@@ -105,25 +105,37 @@ export function EnhancedCard({
     ...getGlowEffect()
   }
 
-  const commonProps = {
+  const baseProps = {
     className: baseClasses,
     style: cardStyle,
+    onClick: disabled ? undefined : onClick
+  }
+
+  const divProps = {
+    ...baseProps,
+    ref: cardRef,
     onMouseMove: handleMouseMove,
     onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
-    onClick: disabled ? undefined : onClick
+    onMouseLeave: handleMouseLeave
+  }
+
+  const anchorProps = {
+    ...baseProps,
+    onMouseMove: (e: React.MouseEvent<HTMLAnchorElement>) => handleMouseMove(e as any),
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave
   }
 
   if (href && !disabled) {
     return (
-      <a href={href} {...commonProps}>
+      <a href={href} {...anchorProps}>
         {children}
       </a>
     )
   }
 
   return (
-    <div ref={cardRef} {...commonProps}>
+    <div {...divProps}>
       {children}
     </div>
   )

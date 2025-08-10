@@ -113,7 +113,8 @@ export const registerBackgroundSync = async (tag: string) => {
   if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
     try {
       const registration = await navigator.serviceWorker.ready
-      await registration.sync.register(tag)
+      const syncManager = (registration as any).sync
+      await syncManager.register(tag)
       console.log('OhiSee! PWA: Background sync registered:', tag)
     } catch (error) {
       console.error('OhiSee! PWA: Background sync registration failed:', error)
@@ -169,8 +170,8 @@ export const trackPWAMetrics = () => {
   console.log('OhiSee! PWA: Metrics collected:', metrics)
   
   // Send to analytics if available
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'pwa_metrics', {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'pwa_metrics', {
       custom_parameters: metrics
     })
   }
