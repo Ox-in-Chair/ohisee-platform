@@ -1,45 +1,35 @@
 # OhISee Platform Development Todo
 
-## Phase 1: Fix Immediate Issues ✅
-- [x] Kill crashed backend process
-- [ ] Fix axios dependency issue
-- [ ] Test backend locally
-- [ ] Prepare for Render deployment
+## Phase 1: Fix Critical Issues ⚡
+- [ ] Fix NEXT_PUBLIC_API_URL in vercel.json (remove /api suffix)
+- [ ] Update frontend/.env.local with correct API URL
+- [ ] Commit and push changes
+- [ ] Redeploy on Vercel
 
-## Phase 2: Deploy Backend to Render
-- [ ] Simplify backend dependencies
-- [ ] Create production build script
-- [ ] Deploy to Render
-- [ ] Connect to frontend
-- [ ] Test API endpoints
+## Phase 2: UI Improvements 🎨
+- [ ] Add Kangopak logo to header
+- [ ] Replace "BRCGS" with configurable standard (GMP)
+- [ ] Make compliance standard an environment variable
+- [ ] Update all UI text references
 
-## Phase 3: Unified Authentication System
-- [ ] Create user model with device tracking
-- [ ] Add login/logout endpoints
-- [ ] Implement session management
-- [ ] Add role-based access control
-- [ ] Create audit logging system
+## Phase 3: Form Enhancements 📝
+- [ ] Add time field for incident (not just date)
+- [ ] Add timezone handling
+- [ ] Improve form validation
+- [ ] Add confirmation before submit
 
-## Phase 4: Module Integration
-- [ ] Create module routing structure
-- [ ] Add navigation between modules
-- [ ] Implement shared components
-- [ ] Add global state management
-- [ ] Create unified dashboard
+## Phase 4: Email Notifications 📧
+- [ ] Set up email recipient configuration
+- [ ] Implement SendGrid integration
+- [ ] Create email template for reports
+- [ ] Test email sending
 
-## Phase 5: Timestamping & Logging
-- [ ] Add automatic timestamps to all records
-- [ ] Create audit trail for all actions
-- [ ] Implement activity logs per user
-- [ ] Add export functionality for logs
-- [ ] Create compliance reports
-
-## Phase 6: Production Improvements
-- [ ] Add PWA capabilities
-- [ ] Implement offline mode
-- [ ] Add real-time sync
-- [ ] Create backup system
-- [ ] Add monitoring and alerts
+## Phase 5: Testing & Verification ✅
+- [ ] Test AI assistant - all 4 functions
+- [ ] Test report submission
+- [ ] Verify data persistence
+- [ ] Test email notifications
+- [ ] Check mobile responsiveness
 
 ## Review Section
 *To be completed after implementation*

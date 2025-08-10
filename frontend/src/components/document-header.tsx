@@ -13,6 +13,8 @@ export function DocumentHeader({
   date = new Date('2025-08-07'),
   className = '',
 }: DocumentHeaderProps) {
+  const complianceStandard = process.env.NEXT_PUBLIC_COMPLIANCE_STANDARD || 'GMP';
+  
   return (
     <div className={`document-header ${className}`}>
       <div className="flex justify-between items-center text-sm md:text-base">
@@ -29,7 +31,7 @@ export function DocumentHeader({
         </span>
       </div>
       <h1 className="text-xl md:text-2xl font-semibold mt-2">
-        BRCGS Confidential Reporting (Whistleblower) Policy
+        {complianceStandard} Confidential Reporting (Whistleblower) Policy
       </h1>
     </div>
   )
