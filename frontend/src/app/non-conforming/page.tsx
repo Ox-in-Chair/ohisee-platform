@@ -5,6 +5,9 @@ import {
   AlertTriangle, ClipboardList, FileText, TrendingUp, Search, 
   Filter, Plus, Clock, CheckCircle, XCircle, Eye, Edit
 } from 'lucide-react'
+import { EnhancedCard, MorphingSkeleton, SkeletonCard } from '@/components/ui/motion'
+import { ButtonPress } from '@/components/ui/micro'
+import { ProgressRing } from '@/components/ui/visualizations'
 
 interface NCA {
   id: string

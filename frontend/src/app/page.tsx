@@ -1,126 +1,270 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
-import { DocumentHeader } from '@/components/document-header'
-import { Shield, FileText, Users, Bell } from 'lucide-react'
+import { 
+  Shield, FileText, Users, Bell, CheckCircle, 
+  FolderOpen, GraduationCap, Search,
+  Home, AlertTriangle, TrendingUp
+} from 'lucide-react'
 
-// OhiSee! Homepage - Cloud Deployment Version
+// OhiSee! Homepage - Now the Dashboard
 export default function HomePage() {
+  const [activeModule, setActiveModule] = useState('dashboard')
+
+  const modules = [
+    {
+      id: 'shift-changeovers',
+      title: 'Shift Change-overs',
+      icon: <TrendingUp className="w-6 h-6" />,
+      description: 'Shift handover documentation and operational continuity tracking',
+      status: 'development',
+      stats: { shifts: 0, handovers: 0, pending: 0 },
+      color: 'bg-gray-100 text-gray-600',
+      href: '/shift-changeovers'
+    },
+    {
+      id: 'process-control',
+      title: 'Process Control Reporting',
+      icon: <CheckCircle className="w-6 h-6" />,
+      description: 'Process specifications, critical control points, job cards, and production monitoring',
+      status: 'development', 
+      stats: { ccps: 0, specs: 0, monitoring: 0 },
+      color: 'bg-gray-100 text-gray-600',
+      href: '/process-control'
+    },
+    {
+      id: 'non-conforming',
+      title: 'Control of Non-Conforming Product',
+      icon: <AlertTriangle className="w-6 h-6" />,
+      description: 'Non-conformance identification, quarantine, disposition, and corrective actions (NCA system)',
+      status: 'ready',
+      stats: { ncas: 8, open: 3, overdue: 1 },
+      color: 'bg-orange-100 text-orange-800',
+      href: '/non-conforming'
+    },
+    {
+      id: 'maintenance',
+      title: 'Maintenance Compliance',
+      icon: <Search className="w-6 h-6" />,
+      description: 'Planned preventive maintenance, job cards, condition monitoring, and post-maintenance clearance',
+      status: 'active',
+      stats: { planned: 12, reactive: 4, overdue: 2 },
+      color: 'bg-blue-100 text-blue-800',
+      href: '/maintenance'
+    },
+    {
+      id: 'complaints',
+      title: 'Complaint Handling',
+      icon: <Users className="w-6 h-6" />,
+      description: 'Customer complaint capture, investigation, corrective actions, and cycle time management',
+      status: 'active',
+      stats: { open: 5, investigating: 2, resolved: 28 },
+      color: 'bg-purple-100 text-purple-800',
+      href: '/complaints'
+    },
+    {
+      id: 'confidential-reporting',
+      title: 'Confidential Reporting',
+      icon: <Bell className="w-6 h-6" />,
+      description: 'Anonymous whistleblower system with secure reporting and investigation processes',
+      status: 'active',
+      stats: { open: 3, investigating: 1, resolved: 15 },
+      color: 'bg-yellow-100 text-yellow-800',
+      href: '/report/new'
+    },
+    {
+      id: 'waste-management',
+      title: 'Waste Management',
+      icon: <FolderOpen className="w-6 h-6" />,
+      description: 'Waste manifest tracking, disposal records, and environmental compliance monitoring',
+      status: 'active',
+      stats: { manifest: 15, disposed: 8, overdue: 0 },
+      color: 'bg-green-100 text-green-800',
+      href: '/waste-management'
+    }
+  ]
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <DocumentHeader className="mb-8" />
-        
-        {/* Dashboard Link */}
-        <div className="bg-primary text-white rounded-lg p-4 mb-8">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-primary text-white">
+        <div className="px-6 py-4 border-b border-white/10">
           <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-xl font-semibold">Access Full Platform</h2>
-              <p className="opacity-90 text-sm mt-1">View all 7 compliance modules in the dashboard</p>
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                <span className="text-primary font-bold text-xl">O</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold">OhiSee!</h1>
+                <p className="text-sm opacity-90">Operations Intelligence Centre</p>
+              </div>
             </div>
-            <Link href="/dashboard" className="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Open Dashboard
-            </Link>
+            <div className="flex items-center gap-4">
+              <span className="text-sm">Multi-Tenant Platform</span>
+              <Link href="/admin" className="text-sm text-white/80 hover:text-white border border-white/20 px-3 py-1 rounded-lg">
+                Admin Center
+              </Link>
+              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-medium">U</span>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8 mt-12">
-          <div className="form-container">
-            <div className="flex items-center gap-3 mb-4">
-              <Shield className="w-8 h-8 text-primary" />
-              <h2 className="text-2xl font-semibold text-gray-800">Submit a Report</h2>
-            </div>
-            <p className="text-gray-600 mb-6">
-              Report concerns anonymously and securely. Your identity will be protected throughout the process.
-            </p>
-            <Link href="/report/new" className="btn-primary inline-block">
-              Submit Confidential Report
-            </Link>
+        {/* Navigation */}
+        <nav className="bg-primary-700 px-6">
+          <div className="flex gap-6 overflow-x-auto">
+            <button
+              onClick={() => setActiveModule('dashboard')}
+              className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 ${
+                activeModule === 'dashboard' 
+                  ? 'border-secondary text-white' 
+                  : 'border-transparent text-white/70 hover:text-white'
+              }`}
+            >
+              <Home className="w-4 h-4" />
+              Dashboard
+            </button>
+            {modules.map((module) => (
+              <button
+                key={module.id}
+                onClick={() => setActiveModule(module.id)}
+                className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 whitespace-nowrap ${
+                  activeModule === module.id 
+                    ? 'border-secondary text-white' 
+                    : 'border-transparent text-white/70 hover:text-white'
+                }`}
+              >
+                {module.icon}
+                {module.title}
+              </button>
+            ))}
           </div>
+        </nav>
+      </header>
 
-          <div className="form-container">
-            <div className="flex items-center gap-3 mb-4">
-              <FileText className="w-8 h-8 text-secondary" />
-              <h2 className="text-2xl font-semibold text-gray-800">Track Your Report</h2>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {activeModule === 'dashboard' ? (
+          <>
+            {/* Page Title */}
+            <div className="mb-8">
+              <h2 className="text-3xl font-semibold text-primary mb-2">Compliance Dashboard</h2>
+              <p className="text-gray-600">Overview of all compliance modules and activities</p>
             </div>
-            <p className="text-gray-600 mb-6">
-              Check the status of your submitted report using your unique reference number.
-            </p>
-            <Link href="/report/track" className="btn-secondary inline-block">
-              Track Confidential Report
-            </Link>
+
+            {/* Quick Actions */}
+            <div className="card-interactive glass-surface p-6 mb-8">
+              <h3 className="text-xl font-semibold text-primary mb-4">Quick Actions</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Link href="/non-conforming" className="btn-primary text-center">
+                  Report Non-Conformance
+                </Link>
+                <Link href="/maintenance" className="btn-primary text-center">
+                  Submit Maintenance Request
+                </Link>
+                <Link href="/complaints" className="btn-secondary text-center">
+                  Handle Customer Complaint
+                </Link>
+                <Link href="/report/new" className="btn-secondary text-center">
+                  Submit Confidential Report
+                </Link>
+              </div>
+            </div>
+
+            {/* Module Grid with Stagger Animation */}
+            <div className="stagger-children grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {modules.map((module, index) => (
+                <Link
+                  key={module.id}
+                  href={module.href}
+                  className="card-interactive"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className={`p-3 rounded-lg ${module.color}`}>
+                      {module.icon}
+                    </div>
+                    <StatusBadge status={module.status} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-primary mb-2">{module.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4">{module.description}</p>
+                  <div className="flex justify-between text-sm">
+                    {Object.entries(module.stats).map(([key, value]) => (
+                      <div key={key}>
+                        <span className="font-semibold text-primary">{value}</span>
+                        <span className="text-gray-500 block capitalize">{key}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* System Status */}
+            <div className="mt-8 bg-gray-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-primary mb-4">System Status</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm">All Systems Operational</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span className="text-sm">98% Uptime This Month</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <AlertTriangle className="w-4 h-4 text-yellow-600" />
+                  <span className="text-sm">3 Pending Reviews</span>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          // Individual Module View
+          <div>
+            <h2 className="text-3xl font-semibold text-primary mb-8">
+              {modules.find(m => m.id === activeModule)?.title}
+            </h2>
+            <div className="bg-white rounded-xl border border-gray-200 p-8">
+              <p className="text-gray-600 mb-6">
+                {modules.find(m => m.id === activeModule)?.description}
+              </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-blue-800">
+                  This module is currently being configured. Full functionality will be available soon.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+      </main>
 
-        <div className="mt-12 grid md:grid-cols-4 gap-6">
-          <CategoryCard
-            icon={<Shield className="w-6 h-6" />}
-            title="Product Safety"
-            description="Report food safety and quality concerns"
-            color="bg-primary"
-          />
-          <CategoryCard
-            icon={<Users className="w-6 h-6" />}
-            title="Misconduct"
-            description="Report ethical violations or misconduct"
-            color="bg-blue-500"
-          />
-          <CategoryCard
-            icon={<Bell className="w-6 h-6" />}
-            title="Health & Safety"
-            description="Report workplace safety issues"
-            color="bg-primary"
-          />
-          <CategoryCard
-            icon={<Users className="w-6 h-6" />}
-            title="Harassment"
-            description="Report discrimination or harassment"
-            color="bg-blue-500"
-          />
-        </div>
-
-        <div className="mt-12 bg-white rounded-xl shadow-card p-8">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800">Your Rights & Protections</h3>
-          <ul className="space-y-3 text-gray-600">
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span>Complete anonymity - your identity is never required</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span>Protection from retaliation under GMP compliance standards</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span>Confidential investigation process with timely responses</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span>AI-powered writing assistance to help you articulate concerns</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </main>
+      {/* Footer */}
+      <footer className="mt-auto border-t border-gray-200 py-6 text-center text-sm text-gray-600">
+        <p>© 2025 OhiSee! Operations Intelligence Centre | Multi-Tenant Compliance Platform | All Rights Reserved</p>
+      </footer>
+    </div>
   )
 }
 
-function CategoryCard({ 
-  icon, 
-  title, 
-  description, 
-  color 
-}: { 
-  icon: React.ReactNode
-  title: string
-  description: string
-  color: string
-}) {
+function StatusBadge({ status }: { status: string }) {
+  const styles = {
+    active: 'bg-green-100 text-green-800',
+    ready: 'bg-orange-100 text-orange-800',
+    development: 'bg-gray-100 text-gray-600'
+  }
+  
+  const labels = {
+    active: 'Active',
+    ready: 'Ready for Development',
+    development: 'In Development'
+  }
+  
   return (
-    <div className="bg-white rounded-lg shadow-card p-6 hover:shadow-card-hover transition-shadow">
-      <div className={`${color} text-white p-3 rounded-lg inline-block mb-3`}>
-        {icon}
-      </div>
-      <h4 className="font-semibold text-gray-800 mb-2">{title}</h4>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
+    <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status as keyof typeof styles]}`}>
+      {labels[status as keyof typeof labels] || status.charAt(0).toUpperCase() + status.slice(1)}
+    </span>
   )
 }
