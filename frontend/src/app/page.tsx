@@ -88,13 +88,13 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-primary text-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 theme-transition">
+      {/* Header with Enhanced Animations */}
+      <header className="bg-primary text-white shadow-lg">
         <div className="px-6 py-4 border-b border-white/10">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-4 animate-fade-in">
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200">
                 <span className="text-primary font-bold text-xl">O</span>
               </div>
               <div>
@@ -102,44 +102,52 @@ export default function HomePage() {
                 <p className="text-sm opacity-90">Operations Intelligence Centre</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm">Multi-Tenant Platform</span>
-              <Link href="/admin" className="text-sm text-white/80 hover:text-white border border-white/20 px-3 py-1 rounded-lg">
+            <div className="flex items-center gap-4 animate-slide-in-right">
+              <span className="text-sm hidden md:inline">Multi-Tenant Platform</span>
+              <Link href="/admin" className="btn-ghost text-sm hover:scale-105 transition-all duration-200">
                 Admin Center
               </Link>
-              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200 cursor-pointer">
                 <span className="text-white text-sm font-medium">U</span>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Navigation */}
-        <nav className="bg-primary-700 px-6">
+        {/* Enhanced Navigation with Micro-interactions */}
+        <nav className="bg-primary-700 px-6 shadow-inner">
           <div className="flex gap-6 overflow-x-auto">
             <button
               onClick={() => setActiveModule('dashboard')}
-              className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 ${
+              className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 hover:scale-105 relative group ${
                 activeModule === 'dashboard' 
-                  ? 'border-secondary text-white' 
-                  : 'border-transparent text-white/70 hover:text-white'
+                  ? 'border-secondary text-white transform scale-105' 
+                  : 'border-transparent text-white/70 hover:text-white hover:bg-white/10 rounded-t-lg'
               }`}
             >
-              <Home className="w-4 h-4" />
+              <Home className={`w-4 h-4 transition-transform ${activeModule === 'dashboard' ? 'rotate-12' : 'group-hover:scale-110'}`} />
               Dashboard
+              {activeModule === 'dashboard' && (
+                <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+              )}
             </button>
             {modules.map((module) => (
               <button
                 key={module.id}
                 onClick={() => setActiveModule(module.id)}
-                className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 whitespace-nowrap ${
+                className={`py-3 px-4 border-b-3 transition-all flex items-center gap-2 whitespace-nowrap hover:scale-105 relative group ${
                   activeModule === module.id 
-                    ? 'border-secondary text-white' 
-                    : 'border-transparent text-white/70 hover:text-white'
+                    ? 'border-secondary text-white transform scale-105' 
+                    : 'border-transparent text-white/70 hover:text-white hover:bg-white/10 rounded-t-lg'
                 }`}
               >
-                {module.icon}
+                <div className={`transition-transform ${activeModule === module.id ? 'rotate-12' : 'group-hover:scale-110'}`}>
+                  {module.icon}
+                </div>
                 {module.title}
+                {activeModule === module.id && (
+                  <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                )}
               </button>
             ))}
           </div>

@@ -465,6 +465,45 @@
                 border-color var(--motion-standard-1) var(--ease-out);
   }
 
+  /* Enhanced Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn var(--motion-standard-1) var(--ease-out);
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight var(--motion-standard-1) var(--ease-out);
+  }
+  
+  .btn-ghost {
+    @apply text-white/80 hover:text-white border border-white/20 px-3 py-1 rounded-lg transition-all;
+  }
+  
+  .btn-ghost:hover {
+    @apply bg-white/10 border-white/40;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {
     .btn-primary,
@@ -476,7 +515,9 @@
     .page-exit-active,
     .stagger-children > *,
     .theme-transition,
-    .theme-transition * {
+    .theme-transition *,
+    .animate-fade-in,
+    .animate-slide-in-right {
       transition: none !important;
       animation: none !important;
       transform: none !important;
