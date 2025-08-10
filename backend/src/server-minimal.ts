@@ -34,18 +34,56 @@ app.post('/api/ai/assist', (req, res) => {
   
   switch (taskType) {
     case 'improve_clarity':
-      improvedText = improvedText.charAt(0).toUpperCase() + improvedText.slice(1)
+      // Make text clearer and more structured
+      improvedText = improvedText
+        .replace(/\s+/g, ' ') // Fix spacing
+        .trim()
+        .split(/[.!?]+/) // Split into sentences
+        .filter(sentence => sentence.trim().length > 0)
+        .map(sentence => {
+          sentence = sentence.trim()
+          return sentence.charAt(0).toUpperCase() + sentence.slice(1)
+        })
+        .join('. ')
       if (!improvedText.endsWith('.')) improvedText += '.'
       break
+      
     case 'make_professional':
-      improvedText = `I would like to report that ${improvedText.toLowerCase()}.`
+      // Convert to professional tone
+      improvedText = improvedText
+        .replace(/\s+/g, ' ')
+        .trim()
+      if (!improvedText.toLowerCase().startsWith('i would like to') && 
+          !improvedText.toLowerCase().startsWith('i am writing to')) {
+        improvedText = `I would like to report the following concern: ${improvedText.toLowerCase()}`
+      }
+      if (!improvedText.endsWith('.')) improvedText += '.'
       break
+      
     case 'fix_grammar':
-      improvedText = improvedText.replace(/\s+/g, ' ').trim()
+      // Basic grammar improvements
+      improvedText = improvedText
+        .replace(/\s+/g, ' ') // Fix spacing
+        .replace(/\bi\b/g, 'I') // Fix 'i' to 'I'
+        .replace(/\.\s*([a-z])/g, (match, letter) => '. ' + letter.toUpperCase()) // Capitalize after periods
+        .trim()
+      if (improvedText && !improvedText.endsWith('.') && !improvedText.endsWith('?') && !improvedText.endsWith('!')) {
+        improvedText += '.'
+      }
       break
+      
     case 'create_summary':
-      improvedText = improvedText.slice(0, 50) + (improvedText.length > 50 ? '...' : '')
+      // Create a concise summary
+      const sentences = improvedText.split(/[.!?]+/).filter(s => s.trim().length > 0)
+      if (sentences.length > 1) {
+        improvedText = sentences[0].trim() + '. ' + sentences[1].trim().slice(0, 30) + '...'
+      } else {
+        improvedText = improvedText.slice(0, 60) + (improvedText.length > 60 ? '...' : '')
+      }
       break
+      
+    default:
+      improvedText = text // Return original if unknown task type
   }
 
   res.json({
