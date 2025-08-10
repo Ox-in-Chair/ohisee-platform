@@ -6,7 +6,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import { errorHandler } from './middleware/errorHandler'
 import { rateLimiter } from './middleware/rateLimiter'
-// import routes from './routes' // Temporarily commented out to test
+import routes from './routes'
 import { initializeDatabase } from './db/connection'
 import { logger } from './utils/logger'
 
@@ -31,8 +31,8 @@ app.use(morgan('combined', { stream: { write: (message) => logger.info(message.t
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
-// app.use('/api', rateLimiter) // Temporarily disabled
-// app.use('/api', routes) // Temporarily commented out to test compilation
+app.use('/api', rateLimiter)
+app.use('/api', routes)
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
