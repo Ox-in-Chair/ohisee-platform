@@ -204,7 +204,6 @@ export default function HomePage() {
                     <div className="p-3 rounded-lg bg-transparent text-white transition-transform duration-200 hover:scale-110 hover:bg-white/10">
                       {module.icon}
                     </div>
-                    <StatusBadge status={module.status} />
                   </div>
                   <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-secondary transition-colors">
                     {module.title}
