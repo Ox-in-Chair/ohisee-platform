@@ -33,6 +33,16 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
+// Direct API test endpoint
+app.get('/api/test', (_req, res) => {
+  res.json({ message: 'API routing works!', timestamp: new Date().toISOString() })
+})
+
+// Direct reports test endpoint  
+app.get('/api/reports-test', (_req, res) => {
+  res.json({ reports: [], message: 'Direct reports endpoint works!' })
+})
+
 app.use(errorHandler)
 
 async function startServer() {
