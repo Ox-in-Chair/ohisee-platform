@@ -8,9 +8,45 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'https://ohisee-platform-frontend.vercel.app',
+    'https://ohisee-platform.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Root endpoint - API documentation
+app.get('/', (req, res) => {
+  res.json({
+    name: 'OhISee Platform API',
+    version: '1.0.0',
+    status: 'active',
+    endpoints: {
+      'GET /': 'API documentation (this page)',
+      'GET /health': 'Health check endpoint',
+      'GET /api': 'API information and modules list',
+      'GET /api/reports': 'Get all reports',
+      'POST /api/reports': 'Submit a new report',
+      'POST /api/ai/assist': 'AI writing assistant'
+    },
+    modules: [
+      'confidential-reporting',
+      'quality-management',
+      'supplier-management',
+      'document-control',
+      'training-management',
+      'audit-management'
+    ],
+    frontend: 'https://ohisee-platform-frontend.vercel.app'
+  });
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
