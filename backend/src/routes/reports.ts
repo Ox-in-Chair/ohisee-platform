@@ -20,6 +20,11 @@ const validateReport = [
   body('email').optional().isEmail(),
 ]
 
+// Super simple test endpoint
+router.get('/test', (req: Request, res: Response) => {
+  res.json({ message: 'Reports route working!', timestamp: new Date().toISOString() })
+})
+
 // Debug endpoint to test database
 router.get('/debug', async (req: Request, res: Response) => {
   try {
