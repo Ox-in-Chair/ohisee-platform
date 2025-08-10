@@ -12,7 +12,8 @@
 
 @layer components {
   .document-header {
-    @apply bg-purple-900 text-white p-4 rounded-t-xl;
+    background-color: #373658;
+    @apply text-white p-4 rounded-t-xl;
   }
   
   .form-container {
@@ -20,10 +21,20 @@
   }
   
   .btn-primary {
-    @apply bg-purple-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-800 transition-colors;
+    background-color: #373658;
+    @apply text-white px-6 py-3 rounded-lg font-medium transition-colors;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2a2845;
   }
   
   .btn-secondary {
-    @apply bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors;
+    background-color: #C44940;
+    @apply text-white px-6 py-3 rounded-lg font-medium transition-colors;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #b03830;
   }
 }
