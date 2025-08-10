@@ -66,6 +66,51 @@ router.get('/debug', async (req: Request, res: Response) => {
   }
 })
 
+// Simplified endpoint that bypasses the controller
+router.get('/simple', async (req: Request, res: Response) => {
+  try {
+    const db = getDb()
+    
+    // Check if using mock database
+    if (typeof db.getReports === 'function') {
+      const reports = await db.getReports('kangopak')
+      return res.json({ 
+        reports: reports.map(report => ({
+          id: report.id,
+          referenceNumber: report.reference_number,
+          category: report.category,
+          title: report.title,
+          status: report.status,
+          priority: report.priority,
+          submittedAt: report.created_at,
+          lastUpdated: report.updated_at,
+        }))
+      })
+    }
+    
+    // Real database - simplified query
+    const reports = await db('reports')
+      .select(['id', 'reference_number', 'category', 'title', 'status', 'priority', 'created_at', 'updated_at'])
+      .orderBy('created_at', 'desc')
+      .limit(10) // Limit to avoid large queries
+    
+    res.json({
+      reports: reports.map(report => ({
+        id: report.id,
+        referenceNumber: report.reference_number,
+        category: report.category,
+        title: report.title,
+        status: report.status,
+        priority: report.priority,
+        submittedAt: report.created_at,
+        lastUpdated: report.updated_at,
+      }))
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message, details: error.stack })
+  }
+})
+
 router.get('/', getTenantFromRequest, async (req: Request, res: Response, next: NextFunction) => {
   try {
     await reportController.getReports(req, res)
