@@ -6,8 +6,9 @@ node_modules/
 # Production
 /build
 */build
-/dist
-*/dist
+# Allow backend dist for Render deployment
+!/backend/dist
+!/backend/dist/**
 /.next
 */.next
 /out
