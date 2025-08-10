@@ -35,7 +35,11 @@ app.use('/api', rateLimiter)
 app.use('/api', routes)
 
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() })
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    version: '1.2.1' // Force deployment 
+  })
 })
 
 // Direct API test endpoint
