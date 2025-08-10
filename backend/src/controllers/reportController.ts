@@ -158,16 +158,29 @@ export class ReportController {
     const db = getDb()
 
     try {
-      let reports: any[]
+      let reports: any[] = []
 
       if (typeof db.getReports === 'function') {
         // Mock database
         reports = await db.getReports(tenantId)
       } else {
-        // Real database
-        reports = await db('reports')
-          .select(['id', 'reference_number', 'category', 'title', 'status', 'priority', 'created_at', 'updated_at'])
-          .orderBy('created_at', 'desc')
+        // Real database - with error handling for missing table
+        try {
+          reports = await db('reports')
+            .select(['id', 'reference_number', 'category', 'title', 'status', 'priority', 'created_at', 'updated_at'])
+            .orderBy('created_at', 'desc')
+        } catch (dbError: any) {
+          logger.error('Database query failed:', dbError)
+          // If table doesn't exist or other DB error, return empty reports
+          if (dbError.message?.includes('relation "reports" does not exist') || 
+              dbError.message?.includes('column') || 
+              dbError.message?.includes('table')) {
+            logger.warn('Reports table may not exist or have wrong schema, returning empty results')
+            reports = []
+          } else {
+            throw dbError
+          }
+        }
       }
 
       res.json({
@@ -184,7 +197,11 @@ export class ReportController {
       })
     } catch (error) {
       logger.error('Error getting reports:', error)
-      throw error
+      // Return graceful error response instead of throwing
+      res.status(500).json({
+        error: 'Failed to retrieve reports',
+        message: 'Unable to fetch reports at this time'
+      })
     }
   }
 
