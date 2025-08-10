@@ -4,9 +4,9 @@ import { Providers } from '@/components/providers'
 import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
-  title: 'Confidential Reporting - Kangopak',
-  description: 'Secure and anonymous reporting system for Kangopak employees',
-  keywords: 'confidential reporting, whistleblower, BRCGS compliance, Kangopak',
+  title: 'OhiSee! - Operations Intelligence Centre',
+  description: 'Comprehensive compliance management system for Kangopak with secure confidential reporting',
+  keywords: 'OhiSee, operations intelligence, confidential reporting, whistleblower, GMP compliance, Kangopak',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 
@@ -17,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50 font-sans antialiased">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-screen bg-white font-sans antialiased" style={{fontFamily: 'Poppins, sans-serif'}}>
         <Providers>
           {children}
           <Toaster

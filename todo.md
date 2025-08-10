@@ -1,4 +1,4 @@
-# OhISee Platform Development Todo
+# OhiSee! Development Todo
 
 ## ✅ Completed Phase 1: Basic Infrastructure
 - [x] Set up GitHub repository

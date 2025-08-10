@@ -1,12 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --font-poppins: 'Poppins', system-ui, sans-serif;
+  }
+  
   body {
-    font-family: 'Poppins', system-ui, sans-serif;
+    font-family: var(--font-poppins);
+    color: #373658;
+    line-height: 1.5;
+  }
+  
+  h1 {
+    @apply text-h1-mobile md:text-h1-desktop;
+  }
+  
+  h2 {
+    @apply text-h2-mobile md:text-h2-desktop;
+  }
+  
+  h3 {
+    @apply text-h3-mobile md:text-h3-desktop;
   }
 }
 
@@ -22,19 +38,21 @@
   
   .btn-primary {
     background-color: #373658;
-    @apply text-white px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base;
   }
   
   .btn-primary:hover {
-    background-color: #2a2845;
+    background-color: #2a2a4a;
+    @apply shadow-lg transform -translate-y-0.5;
   }
   
   .btn-secondary {
     background-color: #C44940;
-    @apply text-white px-6 py-3 rounded-lg font-medium transition-colors;
+    @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base;
   }
   
   .btn-secondary:hover {
-    background-color: #b03830;
+    background-color: #b0423a;
+    @apply shadow-lg transform -translate-y-0.5;
   }
 }

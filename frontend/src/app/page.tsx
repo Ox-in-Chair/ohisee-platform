@@ -8,6 +8,19 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <DocumentHeader className="mb-8" />
         
+        {/* Dashboard Link */}
+        <div className="bg-primary text-white rounded-lg p-4 mb-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="text-xl font-semibold">Access Full Platform</h2>
+              <p className="opacity-90 text-sm mt-1">View all 6 compliance modules in the dashboard</p>
+            </div>
+            <Link href="/dashboard" className="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              Open Dashboard
+            </Link>
+          </div>
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-8 mt-12">
           <div className="form-container">
             <div className="flex items-center gap-3 mb-4">
@@ -18,7 +31,7 @@ export default function HomePage() {
               Report concerns anonymously and securely. Your identity will be protected throughout the process.
             </p>
             <Link href="/report/new" className="btn-primary inline-block">
-              Submit New Report
+              Submit Confidential Report
             </Link>
           </div>
 
@@ -31,7 +44,7 @@ export default function HomePage() {
               Check the status of your submitted report using your unique reference number.
             </p>
             <Link href="/report/track" className="btn-secondary inline-block">
-              Track Report Status
+              Track Confidential Report
             </Link>
           </div>
         </div>
@@ -72,7 +85,7 @@ export default function HomePage() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-1">✓</span>
-              <span>Protection from retaliation under BRCGS compliance standards</span>
+              <span>Protection from retaliation under GMP compliance standards</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-1">✓</span>

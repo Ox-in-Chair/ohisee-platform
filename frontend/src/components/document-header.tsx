@@ -30,9 +30,12 @@ export function DocumentHeader({
           Date: <span className="font-normal">{format(date, 'dd MMMM yyyy')}</span>
         </span>
       </div>
-      <h1 className="text-xl md:text-2xl font-semibold mt-2">
-        {complianceStandard} Confidential Reporting (Whistleblower) Policy
+      <h1 className="text-2xl md:text-3xl font-bold mt-3">
+        {complianceStandard} Confidential Reporting System
       </h1>
+      <p className="text-sm md:text-base mt-1 opacity-90">
+        OhiSee! - Operations Intelligence Centre
+      </p>
     </div>
   )
 }

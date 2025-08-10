@@ -1,7 +1,7 @@
-# OhISee Platform - Confidential Reporting & Compliance Management System
+# OhiSee! - Operations Intelligence Centre
 
 ## 🎯 Overview
-OhISee Platform is a comprehensive compliance management system designed for Kangopak, featuring confidential reporting (whistleblower) capabilities and 6 integrated compliance modules. The platform ensures GMP (Good Manufacturing Practice) compliance with full audit trails and secure anonymous reporting.
+OhiSee! (Operations Intelligence Centre) is a comprehensive compliance management system designed for Kangopak, featuring confidential reporting (whistleblower) capabilities and 6 integrated compliance modules. The platform ensures GMP (Good Manufacturing Practice) compliance with full audit trails and secure anonymous reporting.
 
 ## 🌟 Key Features
 - **Confidential Reporting**: Secure, anonymous whistleblower system
@@ -208,7 +208,7 @@ Proprietary - Kangopak Internal Use Only
 
 ## 🏢 About Kangopak
 
-Kangopak is committed to maintaining the highest standards of food safety and quality. The OhISee Platform supports our compliance efforts by providing secure, transparent, and efficient management of all compliance-related activities.
+Kangopak is committed to maintaining the highest standards of food safety and quality. OhiSee! supports our compliance efforts by providing secure, transparent, and efficient management of all compliance-related activities.
 
 ## 💬 Support
 
