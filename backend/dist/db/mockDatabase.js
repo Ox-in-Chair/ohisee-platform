@@ -14,12 +14,12 @@ class MockDatabase {
         // Add sample admin user (password: admin123)
         const adminUser = {
             id: (0, uuid_1.v4)(),
-            email: 'admin@kangopak.com',
+            email: 'admin@demo.ohisee.com',
             password_hash: '$2a$10$YGzmJwLsRgKcKxFPKxGOhOqP7BQkXPxWXxN8VYh2XqF8vxnxXVxXq', // "admin123"
             first_name: 'Admin',
             last_name: 'User',
             role: 'admin',
-            tenant_id: 'kangopak',
+            tenant_id: 'demo',
             is_active: true,
         };
         this.users.set(adminUser.email, adminUser);

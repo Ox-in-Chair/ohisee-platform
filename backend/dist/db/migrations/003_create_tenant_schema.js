@@ -64,10 +64,10 @@ async function up(knex) {
         });
     };
     await createTenantTables('tenant_default');
-    await createTenantTables('tenant_kangopak');
+    await createTenantTables('tenant_demo');
 }
 async function down(knex) {
     await knex.raw('DROP SCHEMA IF EXISTS tenant_default CASCADE');
-    await knex.raw('DROP SCHEMA IF EXISTS tenant_kangopak CASCADE');
+    await knex.raw('DROP SCHEMA IF EXISTS tenant_demo CASCADE');
 }
 //# sourceMappingURL=003_create_tenant_schema.js.map

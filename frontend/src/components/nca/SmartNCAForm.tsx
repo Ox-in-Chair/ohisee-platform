@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { 
   AlertTriangle, HelpCircle, Camera, MapPin, Barcode, 
   CheckCircle, XCircle, Clock, FileText, Search, Bot,
-  Lightbulb, Shield, Zap, Upload, Eye, Save
+  Lightbulb, Shield, Zap, Upload, Eye, Save, BarChart3
 } from 'lucide-react'
 
 interface SmartTooltipProps {

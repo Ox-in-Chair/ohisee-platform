@@ -20,7 +20,12 @@ const PORT = process.env.PORT || 5000;
 app.set('trust proxy', true); // Enable trust proxy for Render load balancer
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: [
+        'http://localhost:3000',
+        'https://ohisee-platform-frontend.vercel.app', // Correct frontend URL
+        'https://ohisee-platform.vercel.app', // Keep old one for compatibility
+        process.env.CORS_ORIGIN
+    ].filter(Boolean),
     credentials: true,
 }));
 app.use((0, compression_1.default)());
@@ -30,7 +35,19 @@ app.use(express_1.default.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api', rateLimiter_1.rateLimiter);
 app.use('/api', routes_1.default);
 app.get('/health', (_req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        version: '1.2.1' // Force deployment 
+    });
+});
+// Direct API test endpoint
+app.get('/api/test', (_req, res) => {
+    res.json({ message: 'API routing works!', timestamp: new Date().toISOString() });
+});
+// Direct reports test endpoint  
+app.get('/api/reports-test', (_req, res) => {
+    res.json({ reports: [], message: 'Direct reports endpoint works!' });
 });
 app.use(errorHandler_1.errorHandler);
 async function startServer() {
