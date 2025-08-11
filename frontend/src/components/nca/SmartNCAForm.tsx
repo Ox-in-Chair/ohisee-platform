@@ -730,8 +730,275 @@ export default function SmartNCAForm({ onClose }: { onClose: () => void }) {
             </div>
           )}
 
-          {/* Steps 3-5 Placeholder */}
-          {currentStep > 2 && (
+          {/* Step 3: Immediate Action Checklist */}
+          {currentStep === 3 && (
+            <div className="space-y-6">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-red-600" />
+                  <h3 className="font-medium text-red-800">Immediate Action Checklist</h3>
+                  <div className="px-2 py-1 bg-red-200 text-red-800 rounded-full text-xs font-bold">
+                    URGENT
+                  </div>
+                </div>
+                <p className="text-sm text-red-700">
+                  Complete ALL immediate actions within 24 hours of NCA detection. BRCGS 5.7 compliance requires immediate containment.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Cross Contamination Check */}
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <SmartTooltip content="CRITICAL: Assess if non-conforming product could contaminate other products. This determines the scope of quarantine actions and potential recall requirements." aiAssist>
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-5 h-5 text-red-500" />
+                        <h4 className="font-medium text-gray-900">Cross Contamination Risk</h4>
+                        <HelpCircle className="w-4 h-4 text-gray-400" />
+                      </div>
+                    </SmartTooltip>
+                    <div className="flex items-center gap-3">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="crossContamination"
+                          checked={formData.crossContamination === true}
+                          onChange={() => handleInputChange('crossContamination', true)}
+                          className="text-red-600 focus:ring-red-500"
+                        />
+                        <span className="text-sm font-medium text-red-600">YES</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="crossContamination"
+                          checked={formData.crossContamination === false}
+                          onChange={() => handleInputChange('crossContamination', false)}
+                          className="text-green-600 focus:ring-green-500"
+                        />
+                        <span className="text-sm font-medium text-green-600">NO</span>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  {formData.crossContamination && (
+                    <div className="mt-4">
+                      <SmartTooltip content="Describe immediate actions taken to prevent cross contamination. Example: 'Line stopped, downstream product quarantined, equipment sanitized, segregated affected batches.'" aiAssist>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Contamination Action Taken <span className="text-red-500">*</span>
+                          <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                        </label>
+                      </SmartTooltip>
+                      <div className="flex gap-2">
+                        <textarea
+                          value={formData.crossContaminationAction}
+                          onChange={(e) => handleInputChange('crossContaminationAction', e.target.value)}
+                          rows={3}
+                          placeholder="Describe contamination prevention actions taken..."
+                          className="flex-1 px-3 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        />
+                        <AIAssistant
+                          fieldName="correctiveAction"
+                          currentValue={formData.crossContaminationAction}
+                          onSuggestion={(suggestion) => handleInputChange('crossContaminationAction', suggestion)}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Back-tracking Investigation */}
+                <div className="bg-white border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <SmartTooltip content="Track back through production to identify all potentially affected products. Essential for determining full scope of non-conformance." aiAssist>
+                      <div className="flex items-center gap-2">
+                        <Search className="w-5 h-5 text-blue-500" />
+                        <h4 className="font-medium text-gray-900">Back-Tracking Completed</h4>
+                        <HelpCircle className="w-4 h-4 text-gray-400" />
+                      </div>
+                    </SmartTooltip>
+                    <div className="flex items-center gap-3">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={formData.backTrackingCompleted}
+                          onChange={(e) => handleInputChange('backTrackingCompleted', e.target.checked)}
+                          className="text-blue-600 focus:ring-blue-500 rounded"
+                        />
+                        <span className="text-sm font-medium text-gray-700">Complete</span>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  {formData.backTrackingCompleted && (
+                    <div className="mt-4">
+                      <SmartTooltip content="Person responsible for conducting the back-tracking investigation. Must be competent in production processes and traceability.">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Investigation Conducted By
+                          <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                        </label>
+                      </SmartTooltip>
+                      <select
+                        value={formData.backTrackingPerson}
+                        onChange={(e) => handleInputChange('backTrackingPerson', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select Investigator</option>
+                        <option value="Quality Manager">Quality Manager</option>
+                        <option value="Production Manager">Production Manager</option>
+                        <option value="Technical Manager">Technical Manager</option>
+                        <option value="Senior Quality Inspector">Senior Quality Inspector</option>
+                        <option value="Process Engineer">Process Engineer</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Compliance Checklist */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  BRCGS 5.7 Compliance Checklist
+                  <SmartTooltip content="These actions are MANDATORY under BRCGS 5.7. All must be completed for compliance. Failure to complete may result in audit non-conformance.">
+                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                  </SmartTooltip>
+                </h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <SmartTooltip content="Physical HOLD labels must be applied to all affected product. Use bright colored labels clearly marked 'HOLD - DO NOT USE - NCA-XXXX'.">
+                        <div className="flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4 text-orange-500" />
+                          <span className="text-sm font-medium text-gray-700">Hold Label Applied</span>
+                          <HelpCircle className="w-3 h-3 text-gray-400" />
+                        </div>
+                      </SmartTooltip>
+                      <label className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.holdLabelCompleted}
+                          onChange={(e) => handleInputChange('holdLabelCompleted', e.target.checked)}
+                          className="text-orange-600 focus:ring-orange-500 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-600">Done</span>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <SmartTooltip content="NCA must be recorded on the daily log sheet or quality record system. Required for traceability and audit trail.">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium text-gray-700">Recorded on Log Sheet</span>
+                          <HelpCircle className="w-3 h-3 text-gray-400" />
+                        </div>
+                      </SmartTooltip>
+                      <label className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.ncaRecordedOnLogSheet}
+                          onChange={(e) => handleInputChange('ncaRecordedOnLogSheet', e.target.checked)}
+                          className="text-blue-600 focus:ring-blue-500 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-600">Done</span>
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <SmartTooltip content="Physically separate non-conforming product from conforming product. Use designated quarantine area or clearly marked segregation.">
+                        <div className="flex items-center gap-2">
+                          <Shield className="w-4 h-4 text-purple-500" />
+                          <span className="text-sm font-medium text-gray-700">Product Segregated</span>
+                          <HelpCircle className="w-3 h-3 text-gray-400" />
+                        </div>
+                      </SmartTooltip>
+                      <label className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.segregationCompleted}
+                          onChange={(e) => handleInputChange('segregationCompleted', e.target.checked)}
+                          className="text-purple-600 focus:ring-purple-500 rounded"
+                        />
+                        <span className="ml-2 text-sm text-gray-600">Done</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="bg-white border border-gray-200 rounded-lg p-3">
+                    <h5 className="font-medium text-gray-900 mb-2 text-sm">Compliance Status</h5>
+                    <div className="space-y-2">
+                      {[
+                        { key: 'holdLabelCompleted', label: 'Hold Labels', checked: formData.holdLabelCompleted },
+                        { key: 'ncaRecordedOnLogSheet', label: 'Log Sheet', checked: formData.ncaRecordedOnLogSheet },
+                        { key: 'segregationCompleted', label: 'Segregation', checked: formData.segregationCompleted }
+                      ].map(item => (
+                        <div key={item.key} className="flex items-center justify-between text-xs">
+                          <span className="text-gray-600">{item.label}:</span>
+                          <span className={`font-bold ${item.checked ? 'text-green-600' : 'text-red-600'}`}>
+                            {item.checked ? '✓ DONE' : '✗ PENDING'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-2 pt-2 border-t border-gray-100">
+                      <div className="text-xs text-gray-500">
+                        Compliance: {
+                          [formData.holdLabelCompleted, formData.ncaRecordedOnLogSheet, formData.segregationCompleted]
+                            .filter(Boolean).length
+                        }/3 Complete
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* AI Action Recommendations */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Bot className="w-5 h-5 text-blue-600" />
+                  <h4 className="font-medium text-blue-800">AI Action Recommendations</h4>
+                  <div className="px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs font-bold animate-pulse">
+                    SMART
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="w-4 h-4 text-orange-500" />
+                      <span className="text-sm font-medium text-gray-800">Time Critical Actions</span>
+                    </div>
+                    <ul className="text-xs text-gray-600 space-y-1">
+                      <li>• Notify Production Manager within 1 hour</li>
+                      <li>• Complete quarantine within 2 hours</li>
+                      <li>• Customer notification (if shipped): 4 hours</li>
+                      <li>• Supplier notification: 24 hours</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Lightbulb className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm font-medium text-gray-800">Next Steps</span>
+                    </div>
+                    <ul className="text-xs text-gray-600 space-y-1">
+                      <li>• Schedule root cause meeting</li>
+                      <li>• Prepare investigation team</li>
+                      <li>• Review similar historical NCAs</li>
+                      <li>• Check customer complaint history</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="mt-3 p-2 bg-yellow-100 rounded border border-yellow-300">
+                  <p className="text-xs text-yellow-800">
+                    🤖 <strong>AI Alert:</strong> Based on similar metal contamination cases, consider immediate equipment inspection and enhanced metal detection protocols.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Steps 4-5 Placeholder */}
+          {currentStep > 3 && (
             <div className="text-center py-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
                 <Bot className="w-5 h-5" />
