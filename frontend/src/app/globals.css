@@ -21,14 +21,22 @@
     --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
-    /* Enhanced Brand Colors with Variations */
-    --color-primary: #373658;
-    --color-primary-lighter: #454169;
-    --color-primary-darker: #2a2842;
-    --color-secondary: #C44940;
-    --color-secondary-lighter: #d46b62;
-    --color-secondary-darker: #a03d36;
+    /* UPDATED: Color System v2.1.0 - Corrected Brand Colors */
+    /* Brand Colors - Core Values (Never change) */
+    --brand-navy: #2D2B4E;
+    --brand-red: #B52E1E;
+    --brand-white: #FFFFFF;
+    --brand-grey: #D6D8D9;
+    
+    /* Navy Blue Palette (Primary) */
+    --color-primary: #2D2B4E;  /* Updated brand navy */
+    --color-primary-lighter: #7573a0;
+    --color-primary-darker: #252344;
+    --color-secondary: #B52E1E;  /* Updated brand red - RESTRICTED USE */
+    --color-secondary-lighter: #f79a91;
+    --color-secondary-darker: #9d281a;
     --color-white: #FFFFFF;
+    --color-neutral-grey: #D6D8D9;  /* New soft grey */
     
     /* Glass/Translucent Effects */
     --glass-opacity: 0.95;
@@ -38,7 +46,7 @@
   
   body {
     font-family: var(--font-poppins);
-    color: #373658;
+    color: #2D2B4E;  /* Updated to new brand navy */
     line-height: 1.5;
     font-display: swap;
   }
@@ -87,9 +95,9 @@
   a.btn-primary,
   button.btn-primary,
   [class*="btn-primary"] {
-    /* URGENT FIX: Maximum specificity brand colors - overrides ALL Tailwind */
-    background: linear-gradient(135deg, #373658 0%, #2a2842 100%) !important;
-    background-color: #373658 !important;
+    /* UPDATED: Color System v2.1.0 - Navy Blue Primary */
+    background: linear-gradient(135deg, #2D2B4E 0%, #252344 100%) !important;
+    background-color: #2D2B4E !important;
     @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base relative overflow-hidden;
     transition: all var(--motion-fast-2) var(--ease-out) !important;
     /* WCAG AA compliant shadow */
@@ -116,9 +124,9 @@
   a.btn-primary:hover:not(:disabled),
   button.btn-primary:hover:not(:disabled),
   [class*="btn-primary"]:hover:not(:disabled) {
-    /* URGENT FIX: Maximum specificity hover - brand colors enforced */
-    background: linear-gradient(135deg, #454169 0%, #373658 100%) !important;
-    background-color: #454169 !important;
+    /* UPDATED: Hover state with new brand colors */
+    background: linear-gradient(135deg, #7573a0 0%, #2D2B4E 100%) !important;
+    background-color: #7573a0 !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
     transform: translateY(-1px) scale(1.02) !important;
     color: white !important;
@@ -133,9 +141,9 @@
   a.btn-secondary,
   button.btn-secondary,
   [class*="btn-secondary"] {
-    /* URGENT FIX: Maximum specificity secondary brand colors */
-    background: linear-gradient(135deg, #C44940 0%, #a03d36 100%) !important;
-    background-color: #C44940 !important;
+    /* UPDATED: Secondary with new brand red - RESTRICTED USE */
+    background: linear-gradient(135deg, #B52E1E 0%, #9d281a 100%) !important;
+    background-color: #B52E1E !important;
     @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base relative overflow-hidden;
     transition: all var(--motion-fast-2) var(--ease-out) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
@@ -160,8 +168,8 @@
   a.btn-secondary:hover:not(:disabled),
   button.btn-secondary:hover:not(:disabled),
   [class*="btn-secondary"]:hover:not(:disabled) {
-    background: linear-gradient(135deg, #d46b62 0%, #C44940 100%) !important;
-    background-color: #d46b62 !important;
+    background: linear-gradient(135deg, #f79a91 0%, #B52E1E 100%) !important;
+    background-color: #f79a91 !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
     transform: translateY(-1px) scale(1.02) !important;
     color: white !important;
@@ -362,38 +370,88 @@
   
   /* FIXED: Unified Theme System - Design Spec Compliant */
   .light {
-    --color-primary: #373658;
-    --color-primary-lighter: #454169;
-    --color-primary-darker: #2a2842;
-    --color-secondary: #C44940;
-    --color-secondary-lighter: #d46b62;
-    --color-secondary-darker: #a03d36;
+    /* Brand Colors - Core Values */
+    --color-brand-primary: #2D2B4E;
+    --color-brand-accent: #B52E1E;
+    --color-brand-neutral-white: #FFFFFF;
+    --color-brand-neutral-grey: #D6D8D9;
+    
+    /* Navy Blue Palette (Primary) */
+    --color-primary: #2D2B4E;  /* Brand Navy */
+    --color-primary-lighter: #7573a0;
+    --color-primary-darker: #252344;
+    --color-secondary: #B52E1E;  /* Brand Red - RESTRICTED */
+    --color-secondary-lighter: #f79a91;
+    --color-secondary-darker: #9d281a;
     --color-white: #FFFFFF;
-    --color-background: #f8fafc;
-    --color-surface: #ffffff;
-    --color-text: #1e293b;
-    --color-text-secondary: #64748b;
-    /* WCAG AA Compliant Shadows */
-    --shadow-light: rgba(0, 0, 0, 0.08);
-    --shadow-medium: rgba(0, 0, 0, 0.12);
+    
+    /* Semantic Colors */
+    --color-background: #FFFFFF;
+    --color-background-secondary: #fafafa;
+    --color-surface: #FFFFFF;
+    --color-surface-raised: #FFFFFF;
+    --color-text: #2D2B4E;  /* Navy text */
+    --color-text-secondary: #616161;
+    --color-text-brand: #2D2B4E;
+    --color-text-accent: #B52E1E;  /* Use sparingly */
+    
+    /* Interactive States */
+    --color-interactive-primary: #2D2B4E;
+    --color-interactive-primary-hover: #252344;
+    --color-interactive-primary-active: #1d1b3a;
+    
+    /* Borders using Soft Grey */
+    --color-border-light: #eeeeee;
+    --color-border-medium: #D6D8D9;
+    --color-border-strong: #9e9e9e;
+    --color-border-interactive: #2D2B4E;
+    
+    /* WCAG AA Compliant Shadows with Navy */
+    --shadow-light: rgba(45, 43, 78, 0.08);
+    --shadow-medium: rgba(45, 43, 78, 0.12);
   }
   
   .dark {
-    /* FIXED: Use SAME brand colors in dark mode per design spec */
-    --color-primary: #373658;
-    --color-primary-lighter: #454169;
-    --color-primary-darker: #2a2842;
-    --color-secondary: #C44940;
-    --color-secondary-lighter: #d46b62;
-    --color-secondary-darker: #a03d36;
+    /* Brand Colors - Adaptive Values for Dark Theme */
+    --color-brand-primary: #b0afc3;  /* Lighter navy for visibility */
+    --color-brand-accent: #f79a91;   /* Lighter red for visibility */
+    --color-brand-neutral-white: #FFFFFF;
+    --color-brand-neutral-grey: #424242;  /* Darker grey for dark theme */
+    
+    /* Navy Blue Palette - Adapted for Dark */
+    --color-primary: #2D2B4E;  /* Original Brand */
+    --color-primary-lighter: #b0afc3;  /* Light for text */
+    --color-primary-darker: #252344;
+    --color-secondary: #B52E1E;  /* Original Brand Red */
+    --color-secondary-lighter: #f79a91;  /* Light red for text */
+    --color-secondary-darker: #9d281a;
     --color-white: #ffffff;
-    --color-background: #0f172a;
-    --color-surface: #1e293b;
-    --color-text: #f8fafc;          /* WCAG AA: 4.5:1 contrast on dark backgrounds */
-    --color-text-secondary: #cbd5e1; /* WCAG AA: 4.5:1 contrast on dark backgrounds */
-    /* WCAG AA Compliant Dark Shadows */
-    --shadow-light: rgba(0, 0, 0, 0.4);
-    --shadow-medium: rgba(0, 0, 0, 0.5);
+    
+    /* Semantic Colors for Dark Theme */
+    --color-background: #0a0a12;
+    --color-background-secondary: #121218;
+    --color-surface: #1a1a24;
+    --color-surface-raised: #22222e;
+    --color-text: #f5f5f7;           /* High contrast primary text */
+    --color-text-secondary: #cecdd9;  /* High contrast secondary text */
+    --color-text-brand: #cecdd9;     /* Light navy for brand text */
+    --color-text-accent: #f79a91;    /* Light red - use sparingly */
+    
+    /* Interactive States - Adjusted for Dark */
+    --color-interactive-primary: #7573a0;
+    --color-interactive-primary-hover: #b0afc3;
+    --color-interactive-primary-active: #cecdd9;
+    
+    /* Borders with Soft Grey Transparency */
+    --color-border-light: rgba(214, 216, 217, 0.1);
+    --color-border-medium: rgba(214, 216, 217, 0.2);
+    --color-border-strong: rgba(214, 216, 217, 0.3);
+    --color-border-interactive: #7573a0;
+    
+    /* Deeper Shadows for Dark Theme */
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(176, 175, 195, 0.15);
   }
 
   /* ADDED: System theme support - follows OS preference */
@@ -433,29 +491,37 @@
     }
   }
 
-  /* FIXED: Base Theme Styles - Enhanced backgrounds per design spec */
+  /* UPDATED: Page Backgrounds - Color System v2.1.0 */
   .light body {
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, 
+      var(--color-background) 0%, 
+      var(--color-background-secondary) 50%, 
+      var(--color-background) 100%
+    );
     color: var(--color-text);
   }
   
   .dark body {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    background: linear-gradient(135deg, 
+      var(--color-background) 0%, 
+      var(--color-surface) 50%, 
+      var(--color-background) 100%
+    );
     color: var(--color-text);
   }
 
-  /* System theme body support */
+  /* System theme body support with new color system */
   @media (prefers-color-scheme: light) {
     :root:not(.dark) body {
-      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-      color: #1e293b;
+      background: linear-gradient(135deg, #FFFFFF 0%, #fafafa 50%, #FFFFFF 100%);
+      color: #2D2B4E;
     }
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      color: #f8fafc;
+      background: linear-gradient(135deg, #0a0a12 0%, #1a1a24 50%, #0a0a12 100%);
+      color: #f5f5f7;
     }
   }
 

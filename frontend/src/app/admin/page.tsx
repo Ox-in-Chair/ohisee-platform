@@ -118,7 +118,7 @@ export default function AdminCenter() {
                 <span className="text-white font-bold text-sm">O</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">OhiSee! Admin Center</h1>
+                <h1 className="text-xl font-bold text-gray-900">OHiSee! Admin Center</h1>
                 <p className="text-sm text-gray-600">Multi-Tenant Compliance Management</p>
               </div>
             </div>

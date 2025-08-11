@@ -11,7 +11,7 @@ import { EnhancedCard } from '@/components/ui/motion'
 import { ListStaggerReveal } from '@/components/ui/micro'
 import { Header } from '@/components/layout/Header'
 
-// OhiSee! Homepage - Now the Dashboard
+// OHiSee! Homepage - Now the Dashboard
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState('dashboard')
 
@@ -209,7 +209,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="mt-auto border-t border-white/20 py-6 text-center text-sm text-white/80">
-        <p>© 2025 OhiSee! Operations Intelligence Centre | All Rights Reserved</p>
+        <p>© 2025 OHiSee! Operations Intelligence Centre | All Rights Reserved</p>
       </footer>
     </div>
   )
