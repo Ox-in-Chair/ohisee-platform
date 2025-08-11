@@ -997,15 +997,318 @@ export default function SmartNCAForm({ onClose }: { onClose: () => void }) {
             </div>
           )}
 
-          {/* Steps 4-5 Placeholder */}
-          {currentStep > 3 && (
+          {/* Step 4: Disposition */}
+          {currentStep === 4 && (
+            <div className="space-y-6">
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="w-4 h-4 text-purple-600" />
+                  <h3 className="font-medium text-purple-800">Product Disposition Decision</h3>
+                  <div className="px-2 py-1 bg-purple-200 text-purple-800 rounded-full text-xs font-bold">
+                    CRITICAL
+                  </div>
+                </div>
+                <p className="text-sm text-purple-700">
+                  Determine the fate of non-conforming product. This decision impacts quality, cost, customer satisfaction, and regulatory compliance.
+                </p>
+              </div>
+
+              {/* AI-Powered Disposition Recommendation */}
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Bot className="w-5 h-5 text-green-600" />
+                  <h4 className="font-medium text-green-800">AI Disposition Recommendation</h4>
+                  <div className="px-2 py-1 bg-green-200 text-green-800 rounded-full text-xs font-bold animate-pulse">
+                    SMART
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-white/60 rounded-lg p-3 text-center">
+                    <div className="text-2xl font-bold text-red-600 mb-1">REJECT</div>
+                    <div className="text-xs text-gray-600 mb-2">Recommended</div>
+                    <div className="text-xs text-red-700 bg-red-100 rounded px-2 py-1">
+                      Safety Risk: HIGH
+                    </div>
+                  </div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="text-xs font-medium text-gray-800 mb-2">Risk Factors:</div>
+                    <ul className="text-xs text-gray-600 space-y-1">
+                      <li>• Foreign material contamination</li>
+                      <li>• Food safety impact</li>
+                      <li>• Customer injury potential</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="text-xs font-medium text-gray-800 mb-2">Cost Impact:</div>
+                    <div className="text-sm font-bold text-orange-600">$2,340</div>
+                    <div className="text-xs text-gray-600">Estimated loss</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Disposition Selection */}
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-blue-500" />
+                  Select Disposition
+                  <SmartTooltip content="Choose the action to take with non-conforming product. This decision is final and affects quality records, costs, and customer relationships.">
+                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                  </SmartTooltip>
+                </h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    {
+                      value: 'reject',
+                      label: 'Reject to Supplier',
+                      icon: '🚫',
+                      color: 'red',
+                      description: 'Product returned to supplier. Credit/replacement required.',
+                      tooltip: 'Return non-conforming product to supplier. Use for supplier-caused defects. Supplier bears cost and responsibility for corrective action.',
+                      fields: ['rejectToSupplier', 'creditRequired', 'upliftmentRequired']
+                    },
+                    {
+                      value: 'rework',
+                      label: 'Rework/Reprocess',
+                      icon: '🔧',
+                      color: 'orange',
+                      description: 'Product can be corrected through rework process.',
+                      tooltip: 'Product can be fixed through additional processing. Ensure rework procedures are validated and documented.',
+                      fields: ['reworkRequired']
+                    },
+                    {
+                      value: 'concession',
+                      label: 'Use Under Concession',
+                      icon: '⚖️',
+                      color: 'yellow',
+                      description: 'Product accepted with deviation from specification.',
+                      tooltip: 'Product used despite deviation. Requires technical justification and customer approval. Document why deviation is acceptable.',
+                      fields: ['concessionGranted']
+                    },
+                    {
+                      value: 'discard',
+                      label: 'Discard/Destroy',
+                      icon: '🗑️',
+                      color: 'gray',
+                      description: 'Product destroyed at Kangopak facility.',
+                      tooltip: 'Product cannot be corrected and poses risk if used. Destruction must be witnessed and documented.',
+                      fields: ['discardAtKangopak']
+                    }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleInputChange('disposition', option.value)}
+                      className={`p-4 border-2 rounded-lg text-left transition-colors ${
+                        formData.disposition === option.value
+                          ? `border-${option.color}-500 bg-${option.color}-50`
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <SmartTooltip content={option.tooltip} aiAssist>
+                        <div className="flex items-start gap-3">
+                          <span className="text-2xl">{option.icon}</span>
+                          <div>
+                            <div className={`font-medium ${
+                              formData.disposition === option.value 
+                                ? `text-${option.color}-800` 
+                                : 'text-gray-900'
+                            }`}>
+                              {option.label}
+                            </div>
+                            <div className="text-sm text-gray-600 mt-1">
+                              {option.description}
+                            </div>
+                          </div>
+                        </div>
+                      </SmartTooltip>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Conditional Disposition Actions */}
+              {formData.disposition && (
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-4">
+                    Disposition Actions Required
+                  </h4>
+                  
+                  <div className="space-y-4">
+                    {/* Reject Actions */}
+                    {formData.disposition === 'reject' && (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="flex items-center justify-between">
+                          <SmartTooltip content="Physically return product to supplier. Required for supplier accountability.">
+                            <span className="text-sm font-medium text-gray-700">Return to Supplier</span>
+                          </SmartTooltip>
+                          <input
+                            type="checkbox"
+                            checked={formData.rejectToSupplier}
+                            onChange={(e) => handleInputChange('rejectToSupplier', e.target.checked)}
+                            className="text-red-600 focus:ring-red-500 rounded"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <SmartTooltip content="Request credit note from supplier for rejected product value.">
+                            <span className="text-sm font-medium text-gray-700">Credit Required</span>
+                          </SmartTooltip>
+                          <input
+                            type="checkbox"
+                            checked={formData.creditRequired}
+                            onChange={(e) => handleInputChange('creditRequired', e.target.checked)}
+                            className="text-red-600 focus:ring-red-500 rounded"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <SmartTooltip content="Supplier collection of rejected product required (at supplier cost).">
+                            <span className="text-sm font-medium text-gray-700">Upliftment Required</span>
+                          </SmartTooltip>
+                          <input
+                            type="checkbox"
+                            checked={formData.upliftmentRequired}
+                            onChange={(e) => handleInputChange('upliftmentRequired', e.target.checked)}
+                            className="text-red-600 focus:ring-red-500 rounded"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Rework Actions */}
+                    {formData.disposition === 'rework' && (
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <SmartTooltip content="Product can be corrected through additional processing steps.">
+                            <span className="text-sm font-medium text-gray-700">Rework Process Required</span>
+                          </SmartTooltip>
+                          <input
+                            type="checkbox"
+                            checked={formData.reworkRequired}
+                            onChange={(e) => handleInputChange('reworkRequired', e.target.checked)}
+                            className="text-orange-600 focus:ring-orange-500 rounded"
+                          />
+                        </div>
+                        {formData.reworkRequired && (
+                          <div>
+                            <SmartTooltip content="Detailed rework instructions. Include: process steps, quality checks, acceptance criteria, and verification requirements." aiAssist>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Rework Instructions <span className="text-red-500">*</span>
+                                <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                              </label>
+                            </SmartTooltip>
+                            <div className="flex gap-2">
+                              <textarea
+                                value={formData.reworkInstructions}
+                                onChange={(e) => handleInputChange('reworkInstructions', e.target.value)}
+                                rows={3}
+                                placeholder="Describe rework process, quality checks, and acceptance criteria..."
+                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                              />
+                              <AIAssistant
+                                fieldName="correctiveAction"
+                                currentValue={formData.reworkInstructions}
+                                onSuggestion={(suggestion) => handleInputChange('reworkInstructions', suggestion)}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Concession Actions */}
+                    {formData.disposition === 'concession' && (
+                      <div className="flex items-center justify-between">
+                        <SmartTooltip content="Technical approval to use product despite deviation. Requires documented justification and customer acceptance.">
+                          <span className="text-sm font-medium text-gray-700">Concession Granted</span>
+                        </SmartTooltip>
+                        <input
+                          type="checkbox"
+                          checked={formData.concessionGranted}
+                          onChange={(e) => handleInputChange('concessionGranted', e.target.checked)}
+                          className="text-yellow-600 focus:ring-yellow-500 rounded"
+                        />
+                      </div>
+                    )}
+
+                    {/* Discard Actions */}
+                    {formData.disposition === 'discard' && (
+                      <div className="flex items-center justify-between">
+                        <SmartTooltip content="Product destroyed at Kangopak facility. Requires witnessed destruction and disposal certificate.">
+                          <span className="text-sm font-medium text-gray-700">Discard at Kangopak</span>
+                        </SmartTooltip>
+                        <input
+                          type="checkbox"
+                          checked={formData.discardAtKangopak}
+                          onChange={(e) => handleInputChange('discardAtKangopak', e.target.checked)}
+                          className="text-gray-600 focus:ring-gray-500 rounded"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Authorization Required */}
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <SmartTooltip content="Person with authority to approve this disposition. Must be competent and have appropriate authorization level for the decision.">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Authorized By <span className="text-red-500">*</span>
+                        <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                      </label>
+                    </SmartTooltip>
+                    <select
+                      value={formData.authorizedBy}
+                      onChange={(e) => handleInputChange('authorizedBy', e.target.value)}
+                      className="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    >
+                      <option value="">Select Authorizer</option>
+                      <option value="Quality Manager">Quality Manager</option>
+                      <option value="Production Manager">Production Manager</option>
+                      <option value="Technical Manager">Technical Manager</option>
+                      <option value="Plant Manager">Plant Manager</option>
+                      <option value="Managing Director">Managing Director</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Disposition Impact Analysis */}
+              {formData.disposition && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BarChart3 className="w-5 h-5 text-blue-600" />
+                    <h4 className="font-medium text-blue-800">Disposition Impact Analysis</h4>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="bg-white/60 rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-green-600">$1,200</div>
+                      <div className="text-xs text-gray-600">Material Cost</div>
+                    </div>
+                    <div className="bg-white/60 rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-orange-600">3-5 days</div>
+                      <div className="text-xs text-gray-600">Timeline</div>
+                    </div>
+                    <div className="bg-white/60 rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-blue-600">Medium</div>
+                      <div className="text-xs text-gray-600">Customer Impact</div>
+                    </div>
+                    <div className="bg-white/60 rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-purple-600">Low</div>
+                      <div className="text-xs text-gray-600">Risk Level</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Step 5: Investigation */}
+          {currentStep === 5 && (
             <div className="text-center py-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
                 <Bot className="w-5 h-5" />
-                <span className="font-medium">Step {currentStep} - Implementation in Progress</span>
+                <span className="font-medium">Step 5: Investigation - Ready for Implementation</span>
               </div>
               <p className="text-gray-500 mt-4">
-                This step will include the same god-tier AI assistance, tooltips, and intelligent validation.
+                Final step will include Ishikawa root cause analysis, corrective actions, and preventive measures with AI guidance.
               </p>
             </div>
           )}
