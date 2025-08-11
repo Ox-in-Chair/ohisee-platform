@@ -82,15 +82,20 @@
     box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
   }
   
-  /* FIXED: Enhanced Button System - Design Spec Compliant */
-  .btn-primary {
-    /* Unified gradient system per design spec: 135° angle, brand colors enforced */
+  /* FIXED: Enhanced Button System - MAXIMUM PRIORITY BRAND COLOR ENFORCEMENT */
+  .btn-primary,
+  a.btn-primary,
+  button.btn-primary,
+  [class*="btn-primary"] {
+    /* URGENT FIX: Maximum specificity brand colors - overrides ALL Tailwind */
     background: linear-gradient(135deg, #373658 0%, #2a2842 100%) !important;
+    background-color: #373658 !important;
     @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base relative overflow-hidden;
-    transition: all var(--motion-fast-2) var(--ease-out);
+    transition: all var(--motion-fast-2) var(--ease-out) !important;
     /* WCAG AA compliant shadow */
-    box-shadow: 0 2px 8px var(--shadow-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
     border: none !important;
+    color: white !important;
     /* Highlight band on top 30% per design spec */
     position: relative;
   }
@@ -107,11 +112,16 @@
     pointer-events: none;
   }
   
-  .btn-primary:hover:not(:disabled) {
-    /* 5-10% brightness shift per design spec - brand colors enforced */
+  .btn-primary:hover:not(:disabled),
+  a.btn-primary:hover:not(:disabled),
+  button.btn-primary:hover:not(:disabled),
+  [class*="btn-primary"]:hover:not(:disabled) {
+    /* URGENT FIX: Maximum specificity hover - brand colors enforced */
     background: linear-gradient(135deg, #454169 0%, #373658 100%) !important;
-    box-shadow: 0 4px 16px var(--shadow-medium);
-    transform: translateY(-1px) scale(1.02);
+    background-color: #454169 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-1px) scale(1.02) !important;
+    color: white !important;
   }
   
   .btn-primary:active {
@@ -119,13 +129,18 @@
     transition: all var(--motion-fast-1) var(--ease-out);
   }
   
-  .btn-secondary {
-    /* Unified gradient system per design spec - secondary brand colors enforced */
+  .btn-secondary,
+  a.btn-secondary,
+  button.btn-secondary,
+  [class*="btn-secondary"] {
+    /* URGENT FIX: Maximum specificity secondary brand colors */
     background: linear-gradient(135deg, #C44940 0%, #a03d36 100%) !important;
+    background-color: #C44940 !important;
     @apply text-white px-6 py-3 rounded-lg font-semibold uppercase tracking-wider transition-all text-sm md:text-base relative overflow-hidden;
-    transition: all var(--motion-fast-2) var(--ease-out);
-    box-shadow: 0 2px 8px var(--shadow-light);
+    transition: all var(--motion-fast-2) var(--ease-out) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
     border: none !important;
+    color: white !important;
     position: relative;
   }
   
@@ -141,10 +156,15 @@
     pointer-events: none;
   }
   
-  .btn-secondary:hover:not(:disabled) {
+  .btn-secondary:hover:not(:disabled),
+  a.btn-secondary:hover:not(:disabled),
+  button.btn-secondary:hover:not(:disabled),
+  [class*="btn-secondary"]:hover:not(:disabled) {
     background: linear-gradient(135deg, #d46b62 0%, #C44940 100%) !important;
-    box-shadow: 0 4px 16px var(--shadow-medium);
-    transform: translateY(-1px) scale(1.02);
+    background-color: #d46b62 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-1px) scale(1.02) !important;
+    color: white !important;
   }
   
   .btn-secondary:active {
@@ -740,7 +760,7 @@
     opacity: 0.8;
   }
   
-  /* Luxury Glass Morphism with Shimmer */
+  /* UPDATED: Luxury Glass WITHOUT shimmer per UI requirements */
   .luxury-glass {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
@@ -749,39 +769,12 @@
       0 8px 32px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
     position: relative;
-    overflow: hidden;
+    /* REMOVED: shimmer effects per UI update requirements */
   }
   
-  .luxury-glass::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.15),
-      transparent
-    );
-    animation: luxury-shimmer 3s infinite;
-    pointer-events: none;
-  }
-  
-  @keyframes luxury-shimmer {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-  
-  /* Enhanced Card Shimmer Effects */
+  /* UPDATED: Card Luxury WITHOUT shimmer (per UI update requirements) */
   .card-luxury {
     position: relative;
-    overflow: hidden;
     background: linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.1) 0%,
@@ -793,6 +786,7 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.2),
       inset 0 -1px 0 rgba(255, 255, 255, 0.1);
     transition: all var(--motion-standard-1) var(--ease-out);
+    /* REMOVED: shimmer-effect per UI requirements - only on buttons/tabs */
   }
   
   .card-luxury:hover {
@@ -803,31 +797,8 @@
       inset 0 -1px 0 rgba(255, 255, 255, 0.2);
   }
   
-  .card-luxury::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    animation: card-shimmer 4s infinite;
-    pointer-events: none;
-  }
-  
-  @keyframes card-shimmer {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
+  /* REMOVED: Card shimmer animation per UI update requirements */
+  /* Shimmer is now restricted to buttons and tabs only */
   
   /* Luxury Button Effects */
   .btn-luxury {

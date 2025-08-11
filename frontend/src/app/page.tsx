@@ -110,7 +110,7 @@ export default function HomePage() {
 
             {/* Enhanced Quick Actions */}
             <EnhancedCard 
-              className="p-6 mb-8 shimmer-effect gloss-overlay"
+              className="p-6 mb-8 gloss-overlay"
               shadowIntensity="light"
               glowEffect={true}
             >
@@ -119,16 +119,16 @@ export default function HomePage() {
                 Quick Actions
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <Link href="/non-conforming" className="btn-primary btn-luxury text-center hover:scale-105 transition-all">
+                <Link href="/non-conforming" className="btn-primary btn-luxury shimmer-effect text-center hover:scale-105 transition-all">
                   Report Non-Conformance
                 </Link>
-                <Link href="/maintenance" className="btn-primary btn-luxury text-center hover:scale-105 transition-all">
+                <Link href="/maintenance" className="btn-primary btn-luxury shimmer-effect text-center hover:scale-105 transition-all">
                   Submit Maintenance Request
                 </Link>
-                <Link href="/complaints" className="btn-secondary btn-luxury text-center hover:scale-105 transition-all">
+                <Link href="/complaints" className="btn-secondary btn-luxury shimmer-effect text-center hover:scale-105 transition-all">
                   Handle Customer Complaint
                 </Link>
-                <Link href="/report/new" className="btn-secondary btn-luxury text-center hover:scale-105 transition-all">
+                <Link href="/report/new" className="btn-secondary btn-luxury shimmer-effect text-center hover:scale-105 transition-all">
                   Submit Confidential Report
                 </Link>
               </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
                   hover3D={true}
                   glowEffect={true}
                   shadowIntensity="medium"
-                  className="p-6 h-full transition-all duration-300 card-luxury shimmer-effect"
+                  className="p-6 h-full transition-all duration-300 card-luxury"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div className="p-3 rounded-lg bg-transparent text-white transition-transform duration-200 hover:scale-110 hover:bg-white/10">
