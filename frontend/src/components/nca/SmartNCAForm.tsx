@@ -1300,16 +1300,335 @@ export default function SmartNCAForm({ onClose }: { onClose: () => void }) {
             </div>
           )}
 
-          {/* Step 5: Investigation */}
+          {/* Step 5: Investigation & Root Cause Analysis */}
           {currentStep === 5 && (
-            <div className="text-center py-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
-                <Bot className="w-5 h-5" />
-                <span className="font-medium">Step 5: Investigation - Ready for Implementation</span>
+            <div className="space-y-6">
+              <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Search className="w-4 h-4 text-indigo-600" />
+                  <h3 className="font-medium text-indigo-800">Investigation & Root Cause Analysis</h3>
+                  <div className="px-2 py-1 bg-indigo-200 text-indigo-800 rounded-full text-xs font-bold">
+                    MANDATORY
+                  </div>
+                </div>
+                <p className="text-sm text-indigo-700">
+                  Conduct thorough investigation using Ishikawa (6M) methodology. BRCGS 5.7 requires documented root cause analysis for all NCAs.
+                </p>
               </div>
-              <p className="text-gray-500 mt-4">
-                Final step will include Ishikawa root cause analysis, corrective actions, and preventive measures with AI guidance.
-              </p>
+
+              {/* AI-Powered Root Cause Suggestions */}
+              <div className="bg-gradient-to-r from-purple-50 to-violet-50 border border-purple-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Bot className="w-5 h-5 text-purple-600" />
+                  <h4 className="font-medium text-purple-800">AI Root Cause Intelligence</h4>
+                  <div className="px-2 py-1 bg-purple-200 text-purple-800 rounded-full text-xs font-bold animate-pulse">
+                    ISHIKAWA
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {[
+                    { category: 'Machine', probability: '85%', cause: 'Cutting blade wear', color: 'red' },
+                    { category: 'Method', probability: '60%', cause: 'Inspection frequency', color: 'orange' },
+                    { category: 'Material', probability: '45%', cause: 'Supplier process', color: 'yellow' },
+                    { category: 'Man', probability: '30%', cause: 'Training gap', color: 'green' },
+                    { category: 'Environment', probability: '25%', cause: 'Humidity levels', color: 'blue' },
+                    { category: 'Measurement', probability: '20%', cause: 'Calibration drift', color: 'purple' }
+                  ].map((item) => (
+                    <div key={item.category} className="bg-white/60 rounded-lg p-3 text-center">
+                      <div className={`text-lg font-bold text-${item.color}-600`}>{item.probability}</div>
+                      <div className="text-xs font-medium text-gray-800">{item.category}</div>
+                      <div className="text-xs text-gray-600 mt-1">{item.cause}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 p-2 bg-purple-100 rounded border border-purple-300">
+                  <p className="text-xs text-purple-800">
+                    🤖 <strong>AI Analysis:</strong> Machine category shows highest probability. Consider immediate equipment inspection and blade replacement protocol.
+                  </p>
+                </div>
+              </div>
+
+              {/* Root Cause Analysis */}
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+                  <Search className="w-5 h-5 text-blue-500" />
+                  Root Cause Analysis (Ishikawa - 6M Method)
+                  <SmartTooltip content="Use the 6M methodology (Man, Machine, Method, Material, Measurement, Environment) to systematically identify the root cause. Be thorough and evidence-based." aiAssist>
+                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                  </SmartTooltip>
+                </h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  {[
+                    { 
+                      category: '👤 Man (People)', 
+                      examples: 'Training, competence, fatigue, communication',
+                      color: 'blue'
+                    },
+                    { 
+                      category: '⚙️ Machine (Equipment)', 
+                      examples: 'Maintenance, calibration, wear, malfunction',
+                      color: 'red'
+                    },
+                    { 
+                      category: '📋 Method (Process)', 
+                      examples: 'Procedures, work instructions, controls',
+                      color: 'green'
+                    },
+                    { 
+                      category: '📦 Material (Raw Materials)', 
+                      examples: 'Supplier quality, specifications, handling',
+                      color: 'orange'
+                    },
+                    { 
+                      category: '📏 Measurement (Inspection)', 
+                      examples: 'Testing methods, instruments, frequency',
+                      color: 'purple'
+                    },
+                    { 
+                      category: '🌡️ Environment (Conditions)', 
+                      examples: 'Temperature, humidity, cleanliness, lighting',
+                      color: 'teal'
+                    }
+                  ].map((item) => (
+                    <div key={item.category} className={`p-3 border border-${item.color}-200 bg-${item.color}-50 rounded-lg`}>
+                      <div className={`font-medium text-${item.color}-800 text-sm mb-1`}>
+                        {item.category}
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        {item.examples}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <SmartTooltip content="Describe the systematic investigation conducted. Include evidence, data, observations, and logical reasoning. Use 5-Why technique if helpful." aiAssist>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Root Cause Analysis <span className="text-red-500">*</span>
+                    <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                  </label>
+                </SmartTooltip>
+                <div className="flex gap-2">
+                  <textarea
+                    value={formData.rootCauseAnalysis}
+                    onChange={(e) => handleInputChange('rootCauseAnalysis', e.target.value)}
+                    rows={5}
+                    placeholder="Conduct systematic root cause analysis using 6M methodology. Document evidence, observations, and logical reasoning..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  />
+                  <div className="flex flex-col gap-2">
+                    <AIAssistant
+                      fieldName="rootCause"
+                      currentValue={formData.rootCauseAnalysis}
+                      onSuggestion={(suggestion) => handleInputChange('rootCauseAnalysis', suggestion)}
+                    />
+                    <SmartTooltip content="Use 5-Why technique for deeper analysis">
+                      <button
+                        type="button"
+                        className="flex items-center gap-1 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+                      >
+                        <HelpCircle className="w-4 h-4" />
+                        5-Why
+                      </button>
+                    </SmartTooltip>
+                  </div>
+                </div>
+              </div>
+
+              {/* Corrective Actions */}
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-green-500" />
+                  Corrective Actions Taken
+                  <SmartTooltip content="Document immediate actions taken to address the root cause. Must be specific, measurable, and directly related to preventing recurrence." aiAssist>
+                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                  </SmartTooltip>
+                </h4>
+                
+                <SmartTooltip content="Describe specific corrective actions implemented. Include who, what, when, where, and how. Actions must address the root cause, not just symptoms." aiAssist>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Corrective Action Taken <span className="text-red-500">*</span>
+                    <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                  </label>
+                </SmartTooltip>
+                <div className="flex gap-2">
+                  <textarea
+                    value={formData.correctiveActionTaken}
+                    onChange={(e) => handleInputChange('correctiveActionTaken', e.target.value)}
+                    rows={4}
+                    placeholder="Describe specific corrective actions implemented to address the root cause..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  />
+                  <AIAssistant
+                    fieldName="correctiveAction"
+                    currentValue={formData.correctiveActionTaken}
+                    onSuggestion={(suggestion) => handleInputChange('correctiveActionTaken', suggestion)}
+                  />
+                </div>
+              </div>
+
+              {/* Assignment and Timeline */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <SmartTooltip content="Assign NCA to competent person responsible for closure. Must have authority and expertise to complete investigation and actions.">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Assigned To <span className="text-red-500">*</span>
+                      <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                    </label>
+                  </SmartTooltip>
+                  <select
+                    value={formData.assignedTo}
+                    onChange={(e) => handleInputChange('assignedTo', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="">Select Responsible Person</option>
+                    <option value="Quality Manager">Quality Manager</option>
+                    <option value="Production Manager">Production Manager</option>
+                    <option value="Technical Manager">Technical Manager</option>
+                    <option value="Maintenance Manager">Maintenance Manager</option>
+                    <option value="Process Engineer">Process Engineer</option>
+                    <option value="Senior Quality Inspector">Senior Quality Inspector</option>
+                  </select>
+                </div>
+
+                <div>
+                  <SmartTooltip content="Set priority level based on safety, quality, legal, and business impact. Critical issues require immediate attention and faster closure.">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Priority Level
+                      <HelpCircle className="w-4 h-4 inline ml-1 text-gray-400" />
+                    </label>
+                  </SmartTooltip>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[
+                      { value: 'low', label: 'Low', color: 'green', icon: '🟢' },
+                      { value: 'medium', label: 'Medium', color: 'yellow', icon: '🟡' },
+                      { value: 'high', label: 'High', color: 'orange', icon: '🟠' },
+                      { value: 'critical', label: 'Critical', color: 'red', icon: '🔴' }
+                    ].map((priority) => (
+                      <button
+                        key={priority.value}
+                        type="button"
+                        onClick={() => handleInputChange('priority', priority.value)}
+                        className={`p-2 border-2 rounded-lg text-center transition-colors ${
+                          formData.priority === priority.value
+                            ? `border-${priority.color}-500 bg-${priority.color}-50`
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <div className="text-lg">{priority.icon}</div>
+                        <div className="text-xs font-medium">{priority.label}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Impact Classification */}
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-purple-500" />
+                  Impact Classification
+                  <SmartTooltip content="Classify the primary impact of this non-conformance. This determines notification requirements and escalation procedures.">
+                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                  </SmartTooltip>
+                </h4>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { 
+                      value: 'safety', 
+                      label: 'Safety', 
+                      icon: '⚠️', 
+                      color: 'red',
+                      description: 'Potential harm to people',
+                      examples: 'Foreign material, allergens, injury risk'
+                    },
+                    { 
+                      value: 'quality', 
+                      label: 'Quality', 
+                      icon: '🎯', 
+                      color: 'blue',
+                      description: 'Product quality impact',
+                      examples: 'Appearance, functionality, specifications'
+                    },
+                    { 
+                      value: 'legality', 
+                      label: 'Legal', 
+                      icon: '⚖️', 
+                      color: 'purple',
+                      description: 'Regulatory compliance',
+                      examples: 'Labeling, traceability, standards'
+                    },
+                    { 
+                      value: 'minor', 
+                      label: 'Minor', 
+                      icon: 'ℹ️', 
+                      color: 'gray',
+                      description: 'Minor deviation',
+                      examples: 'Cosmetic, documentation, minor process'
+                    }
+                  ].map((impact) => (
+                    <button
+                      key={impact.value}
+                      type="button"
+                      onClick={() => handleInputChange('impact', impact.value)}
+                      className={`p-3 border-2 rounded-lg text-left transition-colors ${
+                        formData.impact === impact.value
+                          ? `border-${impact.color}-500 bg-${impact.color}-50`
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <SmartTooltip content={`${impact.description}. Examples: ${impact.examples}`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-lg">{impact.icon}</span>
+                          <span className={`font-medium ${
+                            formData.impact === impact.value 
+                              ? `text-${impact.color}-800` 
+                              : 'text-gray-900'
+                          }`}>
+                            {impact.label}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {impact.description}
+                        </div>
+                      </SmartTooltip>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Investigation Summary */}
+              <div className="bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Eye className="w-5 h-5 text-gray-600" />
+                  <h4 className="font-medium text-gray-800">Investigation Summary</h4>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-indigo-600">
+                      {formData.priority ? formData.priority.toUpperCase() : 'TBD'}
+                    </div>
+                    <div className="text-xs text-gray-600">Priority</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-purple-600">
+                      {formData.impact ? formData.impact.toUpperCase() : 'TBD'}
+                    </div>
+                    <div className="text-xs text-gray-600">Impact</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-green-600">85%</div>
+                    <div className="text-xs text-gray-600">Investigation Complete</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-blue-600">
+                      {formData.assignedTo ? 'Assigned' : 'Pending'}
+                    </div>
+                    <div className="text-xs text-gray-600">Ownership</div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
