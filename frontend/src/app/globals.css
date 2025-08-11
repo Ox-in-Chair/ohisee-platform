@@ -389,8 +389,8 @@
     --color-white: #ffffff;
     --color-background: #0f172a;
     --color-surface: #1e293b;
-    --color-text: #f8fafc;
-    --color-text-secondary: #cbd5e1;
+    --color-text: #f8fafc;          /* WCAG AA: 4.5:1 contrast on dark backgrounds */
+    --color-text-secondary: #cbd5e1; /* WCAG AA: 4.5:1 contrast on dark backgrounds */
     /* WCAG AA Compliant Dark Shadows */
     --shadow-light: rgba(0, 0, 0, 0.4);
     --shadow-medium: rgba(0, 0, 0, 0.5);
@@ -509,7 +509,7 @@
     }
   }
 
-  /* FIXED: Dark Mode Text Colors - Enhanced contrast for readability */
+  /* FIXED: Dark Mode Text Colors - WCAG AA Enhanced contrast */
   .dark .text-primary {
     color: var(--color-primary-lighter) !important;
   }
@@ -528,6 +528,15 @@
 
   .dark .text-gray-900 {
     color: #f8fafc !important;
+  }
+
+  /* WCAG AA: Ensure secondary color readability */
+  .text-secondary {
+    color: #C44940 !important;
+  }
+  
+  .dark .text-secondary {
+    color: #f87171 !important; /* Lighter red for dark mode readability */
   }
 
   /* FIXED: Enhanced text visibility */
